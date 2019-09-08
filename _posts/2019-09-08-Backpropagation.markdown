@@ -2,30 +2,25 @@
 layout: post
 mathjax: true
 comments: true
-title:  "Adding MathJax to a GitHub Pages Jekyll Blog"
+title:  "First Posts, Hopes and Expectations"
 date:   2019-09-08 08:37:06 +0900
-categories: jekyll update
+categories: artificial intelligence update machine learning
 ---
 {%- include mathjax.html -%}
 
-Notes about $ \sum_{Thing} $
+Hello everyone! This is my first post on GitHub Pages.
+Before explaining my hopes and expectations for this website, I would like to briefly introduce myself.
 
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+My name is Fortunato Nucera and I am an aerodynamics engineer. Italian by birth, I moved to Japan at the age of 21 and I have been living here ever since.
+In the past year, I have been growing more and more interested in the field machine learning and I have decided to take a few online courses (Machine Learning by Stanford, Deep Learning by DeepLearning.ai, Mathematics for Machine Learning by the Imperial College and, currently, Deep Learning on Udacity).
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+At the moment, I am halfway through my NanoDegree in DeepLearning on Udacity and I thought that sharing concepts and knowledge could be a good way to absorb and really comprehend the underlying equations.
 
-Jekyll also offers powerful support for code snippets:
+My repository will be available at @tinosai on GitHub.
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+Next article will be about the equations of backpropagation for Neural Networks.
+I am looking forward to a fruitful knowledge exchange.
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+Ciao!
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+Tino
