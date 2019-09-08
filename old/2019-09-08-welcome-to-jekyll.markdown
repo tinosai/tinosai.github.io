@@ -2,7 +2,7 @@
 layout: post
 mathjax: true
 comments: true
-title:  "Adding MathJax to a GitHub Pages Jekyll Blog"
+title:  ""
 date:   2019-09-08 08:37:06 +0900
 categories: jekyll update
 ---
