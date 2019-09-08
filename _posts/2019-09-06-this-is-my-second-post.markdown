@@ -3,7 +3,7 @@ layout: post
 mathjax: true
 comments: true
 title:  "Second post"
-date:   2019-09-08 08:37:06 +0900
+date:   2019-09-06 08:37:06 +0900
 categories: jekyll update
 ---
 {%- include mathjax.html -%}
