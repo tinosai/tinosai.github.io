@@ -18,4 +18,4 @@ Also, for the sake of readability, I will introduce some signs indicating whethe
 **Notation**
 $b \in \mathcal{R}$, therefore $b$ is a scalar.
 $\underline{x} \in \mathcal{R}^N$ for $N>1$, therefore $\underline{x}$ is a vector.
-$\underline{underline{W}} \in \mathcal{R}^(N,M)$ for $N,M>1$, therefore $\underline{underline{W}}$ is a matrix.  
+$\underline{\underline{W}} \in \mathcal{R}^(N,M)$ for $N,M>1$, therefore $\underline{\underline{W}}$ is a matrix.  
