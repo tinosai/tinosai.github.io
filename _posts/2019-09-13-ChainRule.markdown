@@ -12,4 +12,10 @@ Hello everyone! As I promised, I am publishing the first article about the chain
 
 First, I will explain the basics of the *feedforward* step for a fully connected neural network. I will derive the vector formulation *backpropagation* and provide some pseudocode of the latter (up until last week I was considering to publish the python implementation but for backprop but for the sake of generality I will try to keep the code as much language agnostic as I can).
 
-$y=xA$
+First of all, some math. In this blog I will use the denominator layout notation. It means that the vectors will be treated as **row vectors**. This affects what the equations look like and may cause some confusion at the beginning, but it won't be a big problem once the reader gets used to it.
+Also, for the sake of readability, I will introduce some signs indicating whether a certain element is a scalar, a vector or a matrix.
+
+**Notation**
+$b \in \mathcal{R}$, therefore $b$ is a scalar.
+$\underline{x} \in \mathcal{R}^N$ for $N>1$, therefore $\underline{x}$ is a vector.
+$\doubleunderline{W} \in \mathcal{R}^(N,M)$ for $N,M>1$, therefore $\doubleunderline{W}$ is a matrix.  
