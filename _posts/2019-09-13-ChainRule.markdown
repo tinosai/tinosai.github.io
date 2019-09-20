@@ -17,5 +17,6 @@ Also, for the sake of readability, I will introduce some signs indicating whethe
 
 **Notation**
 $b \in \mathcal{R}$, therefore $b$ is a scalar.
-$\underline{x} \in \mathcal{R}^N$ for $N>1$, therefore $\underline{x}$ is a vector.
-$\underline{\underline{W}} \in \mathcal{R}^(N,M)$ for $N,M>1$, therefore $\underline{\underline{W}}$ is a matrix.  
+$\textbf{x} \in \mathcal{R}^N$ for $N>1$, therefore $\textbf{x}$ is a vector.
+$\textbf{W} \in \mathcal{R}^(N,M)$ for $N,M>1$, therefore \textbf{W}$ is a matrix.  
+Please note that $\textbf{x}$ and $\textbf{W}$ both use bold (meaning that they are tensors). In addition, lower-case letters will from this point on indicate vectors, whereas upper-case letters will denote matrices. 
