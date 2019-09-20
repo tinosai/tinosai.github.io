@@ -16,7 +16,7 @@ First of all, some math. In this blog I will use the denominator layout notation
 Also, for the sake of readability, I will introduce some signs indicating whether a certain element is a scalar, a vector or a matrix. </br>  
 
 **Notation**  
-$b \in \mathcal{R}$, therefore $b$ is a scalar.</br>
-**x** $\in \mathcal{R}^N$ for $N>1$, therefore **x** is a vector.</br>
-**W** $\in \mathcal{R}^{N,M}$ for $N,M>1$, therefore **W** is a matrix. </br> 
+$b \in \mathcal{R}$, therefore $b$ is a scalar. </br>
+**x** $\in \mathcal{R}^N$ for $N>1$, therefore **x** is a vector. </br>
+**W** $\in \mathcal{R}^{N,M}$ for $N,M>1$, therefore **W** is a matrix. </br>
 Please note that **x** and **W** both use bold (meaning that they are tensors). In addition, lower-case letters will from this point on indicate vectors, whereas upper-case letters will denote matrices.
