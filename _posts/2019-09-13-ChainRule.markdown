@@ -2,7 +2,7 @@
 layout: post
 mathjax: true
 comments: true
-title:  "Chain"
+title:  "Chain Rule for Fully Connected Neural Network"
 date:   2019-09-08 08:37:06 +0900
 categories: artificial intelligence update machine learning
 ---
@@ -19,5 +19,10 @@ Also, for the sake of readability, I will introduce some signs indicating whethe
 $b \in \mathcal{R}$, therefore $b$ is a scalar.<br />
 **x** $\in \mathcal{R}^N$ for $N>1$, therefore **x** is a vector.<br />
 **W** $\in \mathcal{R}^{N,M}$ for $N,M>1$, therefore **W** is a matrix.<br />
-Please note that **x** and **W** both use bold (meaning that they are tensors). In addition, lower-case letters will from this point on indicate vectors, whereas upper-case letters will denote matrices.
+Please note that **x** and **W** both use bold (meaning that they are tensors). In addition, lower-case letters will from this point on indicate vectors, whereas upper-case letters will denote matrices.<br />
+
+Training a neural network consists of two steps: the forward step and the backpropagation. <br />
+First, let's take a look at the picture below.
 ![picture](/assets/pictures/nn.001.jpeg)
+
+The picture shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with two units.
