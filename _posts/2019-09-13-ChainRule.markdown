@@ -54,7 +54,10 @@ $y \in \mathcal{R}^{(1,2)}$ <br /></center>
 Keep in mind that the vector-matrix multiplication gives, as outcome, another vector having as many column as the matrix. <br />
 
 ## Backpropagation <br />
-Before proceeding with the training, we need to define a metric for the error and study the sigmoid a bit more. <br />
-#### Metric <br />
+Before proceeding with the training, we need to define a loss function, calculate the derivative of the sigmoid and provide a two properties of matrix calculus which will be useful when calculating the derivatives. <br />
+#### Loss Function
+The most common loss function for a neural network are the MSE-Loss (Mean Squared Error) and Crossentropy-Loss. The former is generally used on regression problems, the latter is more commonly found in classification problems. <br />
+
+#### Derivative of the Sigmoid <br />
 The sigmoid has been defined above. However, during the backpropagation step we will have to use its derivative, which I will show here: <br />
-$\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=\sigma(x) \frac{e^{-x}}{1+e^{-x}} = \sigma(x) \frac{1-1+e^{-x}}{1+e^{-x}}=\sigma(x) (1-\sigma(x))$
+<center>$\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=\sigma(x) \frac{e^{-x}}{1+e^{-x}} = \sigma(x) \frac{1-1+e^{-x}}{1+e^{-x}}=\sigma(x) (1-\sigma(x))$</center>
