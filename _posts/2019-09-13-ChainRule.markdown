@@ -27,7 +27,7 @@ First, let's take a look at the picture below.
 
 The picture above shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with two units.
 For simplicity, we will assume that the activation functions of each layer are of sigmoid type, where sigmoid $\sigma$ is: <br />
-<center>$$\begin{align*} \sigma=\frac{1}{1+\exp(-x)} \end{align*}$$ <br /></center>
+<center>$$\begin{align*} \sigma=\frac{1}{1+e^{-x}} \end{align*}$$ <br />
 The forward step follows the following equations: <br /></center>
 <center>$$z^{[1]}=xW^{[1]}+b^{[1]}$$ <br /></center>
 <center>$$a^{[1]}=\sigma(z^{[1]})$$ <br /></center>
@@ -54,3 +54,6 @@ $y \in \mathcal{R}^{(1,2)}$ <br />
 Keep in mind that the vector-matrix multiplication gives, as outcome, another vector having as many column as the matrix. <br />
 
 **Backpropagation**
+Before proceeding with the training, we need to define a metric for the error and study the sigmoid a bit more. <br />
+*Metric* <br />
+The sigmoid has been defined above. However, during the
