@@ -15,7 +15,7 @@ First, I will explain the basics of the *feedforward* step for a fully connected
 First of all, some math. In this blog I will use the denominator layout notation. It means that the vectors will be treated as **row vectors**. This affects what the equations look like and may cause some confusion at the beginning, but it won't be a big problem once the reader gets used to it.  <br />
 Also, for the sake of readability, I will introduce some signs indicating whether a certain element is a scalar, a vector or a matrix. <br />  
 
-**Notation**  
+## Notation
 $b \in \mathcal{R}$, therefore $b$ is a scalar.<br />
 **x** $\in \mathcal{R}^N$ for $N>1$, therefore **x** is a vector.<br />
 **W** $\in \mathcal{R}^{N,M}$ for $N,M>1$, therefore **W** is a matrix.<br />
@@ -38,7 +38,7 @@ $$y=\sigma(z^{[3]})$$ <br /></center>
 
 with: <br />
 $x \in \mathcal{R}^{(1,8)}$ <br />
-$W^{[1]} \in \mathcal{R}^{(8,4)}$ <br />
+<center>$W^{[1]} \in \mathcal{R}^{(8,4)}$ <br />
 $b^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
 $z^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
 $a^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
@@ -49,11 +49,11 @@ $a^{[2]} \in \mathcal{R}^{(1,3)}$ <br />
 $W^{[3]} \in \mathcal{R}^{(3,2)}$ <br />
 $b^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
 $z^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
-$y \in \mathcal{R}^{(1,2)}$ <br />
+$y \in \mathcal{R}^{(1,2)}$ <br /></center>
 
 Keep in mind that the vector-matrix multiplication gives, as outcome, another vector having as many column as the matrix. <br />
 
-**Backpropagation**
+## Backpropagation <br />
 Before proceeding with the training, we need to define a metric for the error and study the sigmoid a bit more. <br />
-*Metric* <br />
+#### Metric <br />
 The sigmoid has been defined above. However, during the
