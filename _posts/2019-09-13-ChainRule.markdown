@@ -58,6 +58,6 @@ Before proceeding with the training, we need to define a metric for the error an
 #### Metric <br />
 The sigmoid has been defined above. However, during the backpropagation step we will have to use its derivative, which I will show here: <br />
 $\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=$ <br />
-$\sigma(x) \dot \frac{e^{-x}}{1+e^{-x}} =$ <br />
-$\sigma(x)\dot \frac{1-1+e^{-x}}{1+e^{-x}}=$ <br />
-$\sigma(x)\dot(1-\sigma(x))$
+$\sigma(x) \frac{e^{-x}}{1+e^{-x}} =$ <br />
+$\sigma(x) \frac{1-1+e^{-x}}{1+e^{-x}}=$ <br />
+$\sigma(x) (1-\sigma(x))$
