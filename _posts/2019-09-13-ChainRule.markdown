@@ -15,7 +15,7 @@ First, I will explain the basics of the *feedforward* step for a fully connected
 First of all, some math. In this blog I will use the denominator layout notation. It means that the vectors will be treated as **row vectors**. This affects what the equations look like and may cause some confusion at the beginning, but it won't be a big problem once the reader gets used to it.  
 Also, for the sake of readability, I will introduce some signs indicating whether a certain element is a scalar, a vector or a matrix.  
 
-**Notation**
+**Notation**  
 $b \in \mathcal{R}$, therefore $b$ is a scalar.
 **x** $\in \mathcal{R}^N$ for $N>1$, therefore **x** is a vector.
 **W** $\in \mathcal{R}^{N,M}$ for $N,M>1$, therefore **W** is a matrix.  
