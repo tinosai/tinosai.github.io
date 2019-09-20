@@ -37,8 +37,8 @@ $$z^{[3]}=a^{[2]}W^{[3]}+b^{[3]}$$ <br />
 $$y=\sigma(z^{[3]})$$ <br /></center>
 
 with: <br />
-$x \in \mathcal{R}^{(1,8)}$ <br />
-<center>$W^{[1]} \in \mathcal{R}^{(8,4)}$ <br />
+<center>$x \in \mathcal{R}^{(1,8)}$ <br />
+$W^{[1]} \in \mathcal{R}^{(8,4)}$ <br />
 $b^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
 $z^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
 $a^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
