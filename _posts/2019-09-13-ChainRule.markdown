@@ -29,12 +29,12 @@ The picture above shows a fully connected neural network with 2 hidden layers, a
 For simplicity, we will assume that the activation functions of each layer are of sigmoid type, where sigmoid $\sigma$ is: <br />
 <center>$$\begin{align*} \sigma=\frac{1}{1+e^{-x}} \end{align*}$$ <br /></center>
 The forward step follows the following equations: <br />
-<center>$$z^{[1]}=xW^{[1]}+b^{[1]}$$ <br /></center>
-<center>$$a^{[1]}=\sigma(z^{[1]})$$ <br /></center>
-<center>$$z^{[2]}=a^{[1]}W^{[2]}+b^{[2]}$$ <br /></center>
-<center>$$a^{[2]}=\sigma(z^{[2]})$$ <br /></center>
-<center>$$z^{[3]}=a^{[2]}W^{[3]}+b^{[3]}$$ <br /></center>
-<center>$$y=\sigma(z^{[3]})$$ <br /></center>
+<center>$$z^{[1]}=xW^{[1]}+b^{[1]}$$ <br />
+$$a^{[1]}=\sigma(z^{[1]})$$ <br />
+$$z^{[2]}=a^{[1]}W^{[2]}+b^{[2]}$$ <br />
+$$a^{[2]}=\sigma(z^{[2]})$$ <br />
+$$z^{[3]}=a^{[2]}W^{[3]}+b^{[3]}$$ <br />
+$$y=\sigma(z^{[3]})$$ <br /></center>
 
 with: <br />
 $x \in \mathcal{R}^{(1,8)}$ <br />
