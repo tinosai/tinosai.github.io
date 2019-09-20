@@ -74,3 +74,9 @@ The hardest of backpropagation is deriving with respect to the weights. It is im
 Given a product **aX** where **a** is a vector and **X** is a matrix, its derivatives are: <br />
 <center>$\frac{d}{da}(aX)=X$</center> <br />
 <center>$\frac{d}{dX}(aX)=a^T$</center> <br />
+Keep in mind that when the two rules above are applied to the chain rule in the neural network, $a^T$ has to be first term of the chain and $X$ has to be the last.
+
+
+### The backpropagation process
+We need to update the matrices $W^{[1]}$, $W^{[2]}$, $W^{[3]}$ as well as the vectors $b^{[1]}$,$b^{[2]}$,$b^{[3]}$. The optimization is performed with gradient descent, therefore we need to find the following gradients: <br />
+$\frac{dE}{dW^{[1]}},\frac{dE}{dW^{[2]}},\frac{dE}{dW^{[3]}},\frac{dE}{db^{[1]}},\frac{dE}{db^{[2]}},\frac{dE}{db^{[3]}}$
