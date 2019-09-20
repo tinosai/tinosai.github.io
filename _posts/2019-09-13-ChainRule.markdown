@@ -35,3 +35,18 @@ The forward step follows the following equations: <br /></center>
 <center>$$a^{[2]}=\sigma(z^{[2]})$$ <br /></center>
 <center>$$z^{[3]}=a^{[2]}W^{[3]}+b^{[3]}$$ <br /></center>
 <center>$$y=\sigma(z^{[3]})$$ <br /></center>
+
+with: <br />
+$x \in \mathcal{R}^{(1,8)}$ <br />
+$W^{[1]} \in \mathcal{R}^{(8,4)}$ <br />
+$b^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
+$z^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
+$a^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
+$W^{[2]} \in \mathcal{R}^{(4,3)}$ <br />
+$b^{[2]} \in \mathcal{R}^{(1,3)}$ <br />
+$z^{[2]} \in \mathcal{R}^{(1,3)}$ <br />
+$a^{[2]} \in \mathcal{R}^{(1,3)}$ <br />
+$W^{[3]} \in \mathcal{R}^{(3,2)}$ <br />
+$b^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
+$z^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
+$y \in \mathcal{R}^{(1,2)}$ <br />
