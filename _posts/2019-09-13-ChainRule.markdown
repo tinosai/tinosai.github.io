@@ -57,4 +57,4 @@ Keep in mind that the vector-matrix multiplication gives, as outcome, another ve
 Before proceeding with the training, we need to define a metric for the error and study the sigmoid a bit more. <br />
 #### Metric <br />
 The sigmoid has been defined above. However, during the backpropagation step we will have to use its derivative, which I will show here: <br />
-$\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=$
+$\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=\sigma(x)\dot \frac{e^{-x}}{1+e^{-x}}=\sigma(x)\dot \frac{1-1+e^{-x}}{1+e^{-x}}=\sigma(x)\dot(1-\sigma(x)) $
