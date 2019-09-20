@@ -58,10 +58,14 @@ Before proceeding with the training, we need to define a loss function, calculat
 #### Loss Function
 The most common loss function for a neural network are the MSE-Loss (Mean Squared Error) and Crossentropy-Loss. The former is generally used on regression problems, the latter is more commonly found in classification problems. <br />
 In this article, we will consider a MSE-Loss, written as:<br />
-<center>$E=\frac{1}{2m}\sum_{i=1}^m (\bm(g) - \bm(y))$</center><br />
+<center>$E=\frac{1}{2m}\sum_{i=1}^m (g - y)$</center><br />
 The single example leads to the following error: <br />
-<center>$E=\frac{1}{2}(\bm(g_k) - \bm(y_k))$</center><br />
+<center>$E=\frac{1}{2}(g_k - y_k)$</center><br />
+Where g is the ground truth and y is the predicted value.
 
 #### Derivative of the Sigmoid <br />
 The sigmoid has been defined above. However, during the backpropagation step we will have to use its derivative, which I will show here: <br />
 <center>$\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=\sigma(x) \frac{e^{-x}}{1+e^{-x}} = \sigma(x) \frac{1-1+e^{-x}}{1+e^{-x}}=\sigma(x) (1-\sigma(x))$</center>
+
+#### Note on matrix calculus
+It is hard to find resources explaining matrix calculus in detail. A couple months ago, I found this ebook that was quite good ["The matrix Cookbook"][https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf]
