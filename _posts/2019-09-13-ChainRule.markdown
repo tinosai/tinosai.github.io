@@ -20,3 +20,4 @@ $b \in \mathcal{R}$, therefore $b$ is a scalar.<br />
 **x** $\in \mathcal{R}^N$ for $N>1$, therefore **x** is a vector.<br />
 **W** $\in \mathcal{R}^{N,M}$ for $N,M>1$, therefore **W** is a matrix.<br />
 Please note that **x** and **W** both use bold (meaning that they are tensors). In addition, lower-case letters will from this point on indicate vectors, whereas upper-case letters will denote matrices.
+![picture](/assets/pictures/nn.001.jpeg)
