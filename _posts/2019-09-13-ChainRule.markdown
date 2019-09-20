@@ -50,3 +50,7 @@ $W^{[3]} \in \mathcal{R}^{(3,2)}$ <br />
 $b^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
 $z^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
 $y \in \mathcal{R}^{(1,2)}$ <br />
+
+Keep in mind that the vector-matrix multiplication gives, as outcome, another vector having as many column as the matrix. <br />
+
+**Backpropagation**
