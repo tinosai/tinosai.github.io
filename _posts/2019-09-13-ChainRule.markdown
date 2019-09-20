@@ -58,7 +58,7 @@ Before proceeding with the training, we need to define a loss function, calculat
 #### Loss Function
 The most common loss function for a neural network are the MSE-Loss (Mean Squared Error) and Crossentropy-Loss. The former is generally used on regression problems, the latter is more commonly found in classification problems. <br />
 In this article, we will consider a MSE-Loss, written as:<br />
-<center>$E=\frac{1}{2m}\Sum_{i=1}^m (**g** - **y**)$</center><br />
+<center>$E=\frac{1}{2m}\sum_{i=1}^m (**g** - **y**)$</center><br />
 The single example leads to the following error: <br />
 <center>$E=\frac{1}{2}(**g_k** - **y_k**)$</center><br />
 
