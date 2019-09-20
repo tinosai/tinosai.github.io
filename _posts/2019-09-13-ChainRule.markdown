@@ -65,12 +65,12 @@ Where g is the ground truth and y is the predicted value.
 
 #### Derivative of the Sigmoid <br />
 The sigmoid has been defined above. However, during the backpropagation step we will have to use its derivative, which I will show here: <br />
-<center>$\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=\sigma(x) \frac{e^{-x}}{1+e^{-x}} = \sigma(x) \frac{1-1+e^{-x}}{1+e^{-x}}=\sigma(x) (1-\sigma(x))$</center>
+<center>$\frac{d}{dx}\sigma(x)=\frac{d}{dx}\frac{1}{1+e^{-x}}=\frac{e^{-x}}{(1+e^{-x})^2}=\sigma(x) \frac{e^{-x}}{1+e^{-x}} = \sigma(x) \frac{1-1+e^{-x}}{1+e^{-x}}=\sigma(x) (1-\sigma(x))$</center><br />
 
 #### Note on matrix calculus
 It is hard to find resources explaining matrix calculus in detail. A couple months ago, I found this ebook that was quite clarifying: ["The matrix Cookbook"](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf). <br />
 The hardest of backpropagation is deriving with respect to the weights. It is important to keep in mind that what I am about to state applies **only** to the denominator layout formulation of the neural network. If you use a numerator layout, you will need to work on the transpose to make the dimensions match. <br />
 **The rules** <br />
 Given a product **aX** where **a** is a vector and **X** is a matrix, its derivatives are: <br />
-<center>\frac{d}{da}(aX)=X</center> <br />
-<center>\frac{d}{dX}(aX)=a^T</center> <br /> 
+<center>$\frac{d}{da}(aX)=X$</center> <br />
+<center>$\frac{d}{dX}(aX)=a^T$</center> <br />
