@@ -25,4 +25,6 @@ Training a neural network consists of two steps: the forward step and the backpr
 First, let's take a look at the picture below.
 ![picture](/assets/pictures/nn.001.jpeg)
 
-The picture shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with two units.
+The picture above shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with two units.
+The forward step follows the following equations:
+$$z^{[1]}=xW^{[1]}+b^{[1]}$$
