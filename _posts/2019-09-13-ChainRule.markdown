@@ -27,6 +27,6 @@ First, let's take a look at the picture below.
 
 The picture above shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with two units.
 For simplicity, we will assume that the activation functions of each layer are of sigmoid type, where sigmoid $\sigma$ is: <br />
-$$\sigma=\frac{1}{1+\exp(-x)}$$
+$$\begin{align*} \sigma=\frac{1}{1+\exp(-x)} \end{align*}$$
 The forward step follows the following equations:
 $$z^{[1]}=xW^{[1]}+b^{[1]}$$
