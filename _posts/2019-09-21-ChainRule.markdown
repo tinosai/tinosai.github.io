@@ -2,8 +2,8 @@
 layout: post
 mathjax: true
 comments: true
-title:  "Chain Rule for Fully Connected Neural Network"
-date:   2019-09-20 12:00:00 +0900
+title:  "Chain Rule for Fully Connected Neural Networks"
+date:   2019-09-20 12:00:06 +0900
 categories: artificial intelligence update machine learning
 ---
 {%- include mathjax.html -%}
@@ -110,10 +110,10 @@ The derivative of the unactivated output with respect to the weight matrix $W^{[
 
 <center>$\frac{\partial z^{[3]}}{\partial W^{[3]}}={a^{[2]}}^T$</center>
 
-<center> $\frac{\partial E}{\partial W^{[3]}}=-\underbrace{{a^{[2]}}^T}_\text{(3,1)} \times \underbrace{y}_\text{(1,2)}\underbrace{(1-y)}_\text{(1,2)}\underbrace{(g-y)}_\text{(1,2)}$ </center>
+<center> $\frac{\partial E}{\partial W^{[3]}}=-{a^{[2]}}^T \times y(1-y)(g-y)$ </center>
 
 Where the $\times$ symbol is used to indicate the matrix multiplication. Please note that where the multiplication symbol is implied, the operation is executed elementwise. As a result: <br />
-<center> $\frac{\partial E}{\partial W^{[3]}}=-\underbrace{{a^{[2]}}^T}_\text{(3,1)} \times \underbrace{y(1-y)(g-y)}_\text{(1,2)}$ </center>
+<center> $\frac{\partial E}{\partial W^{[3]}}=-{a^{[2]}}^T\times y(1-y)(g-y)$ </center>
 
 Therefore $\frac{\partial E}{\partial W^{[3]}}$ is a (3,2) matrix, which is exactly the same size of $W^{[3]}$.
 
@@ -126,7 +126,7 @@ Therefore $\frac{\partial E}{\partial W^{[3]}}$ is a (3,2) matrix, which is exac
 We can now build the gradient with respect to the weight matrix $W^{[2]}$. Please note that the matrix multiplication involving the weight matrix becomes the last operation in the chain rule (it is the last factor of the chain).
 
 <center>$\frac{\partial E}{\partial W^{[2]}}=
-\underbrace{{a^{[1]}}^T}_\text{(4,1)} \times \left[ \underbrace{a^{[2]}(1-a^{[2]})}_\text{(1,3)}\left( \underbrace{y}_\text{(1,2)}\underbrace{(1-y)}_\text{(1,2)}\underbrace{(g-y)}_\text{(1,2)} \times \underbrace{{W^{[3]}}^T}_\text{(2,3)} \right) \right]$</center>
+{a^{[1]}}^T \times \left[ a^{[2]}(1-a^{[2]})\left( y(1-y)(g-y)\times {W^{[3]}}^T \right) \right]$</center>
 
 Therefore $\frac{\partial E}{\partial W^{[2]}}$ is a (4,3) matrix, which is exactly the same size of $W^{[2]}$. <br />
 
@@ -141,8 +141,8 @@ The last derivative is the derivative of the error with respect to $W^{[1]}$
 Building the gradient of the error with respect to the weight matrix $W^{[1]}$ leads to:
 
 <center>$\frac{\partial E}{\partial W^{[1]}}=
-\underbrace{x^T}_\text{(8,1)} \times \underbrace{a^{[1]}(1-a^{[1]})}_\text{(1,4)}
- \left[ \underbrace{a^{[2]}(1-a^{[2]})}_\text{(1,3)}\left( \underbrace{y(1-y)(g-y) \times {W^{[3]}}^T}_\text{(1,3)} \right)\right] \times \underbrace{{W^{[2]}}^T}_\text{(3,4)} $</center>
+x^T\times a^{[1]}(1-a^{[1]})
+ \left[ a^{[2]}(1-a^{[2]})\left( y(1-y)(g-y) \times {W^{[3]}}^T \right)\right] \times {W^{[2]}}^T$</center>
 
 Therefore $\frac{\partial E}{\partial W^{[1]}}$ is a (8,4) matrix, which is exactly the same size of $W^{[1]}$. <br />
 
@@ -155,10 +155,3 @@ Once you have calculated the previous gradients, the sum of all of them upon all
 I have tried to explain the math behind the training of a fully connected neural network through an example. You can try to code the algorithm in numpy: it will help you cement the logic behind the neural network training. <br />
 It is true that these days we have multiple deep learning software (like Pytorch and Tensorflow) which can do the dirty job for us, but we cannot and should not forget the basics. Here you can find a link to an [article](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b) by Andrej Karpathy which I recommend you to read. <br />
 Thank you for reading to the very end!
-
-Ciao!
-
-
-```python
-
-```
