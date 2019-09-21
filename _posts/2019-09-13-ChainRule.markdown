@@ -28,7 +28,7 @@ First, let's take a look at the picture below.
 The picture above shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with two units.
 For simplicity, we will assume that the activation functions of each layer are of sigmoid type, where sigmoid $\sigma$ is: <br />
 <center>$$\begin{align*} \sigma=\frac{1}{1+\exp(-x)} \end{align*}$$ <br /></center>
-The forward step follows the following equations: <br /></center>
+The forward step follows the following equations: <br />
 <center>$$z^{[1]}=xW^{[1]}+b^{[1]}$$ <br /></center>
 <center>$$a^{[1]}=\sigma(z^{[1]})$$ <br /></center>
 <center>$$z^{[2]}=a^{[1]}W^{[2]}+b^{[2]}$$ <br /></center>
@@ -37,16 +37,9 @@ The forward step follows the following equations: <br /></center>
 <center>$$y=\sigma(z^{[3]})$$ <br /></center>
 
 with: <br />
-$x \in \mathcal{R}^{(1,8)}$ <br />
 $W^{[1]} \in \mathcal{R}^{(8,4)}$ <br />
 $b^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
-$z^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
-$a^{[1]} \in \mathcal{R}^{(1,4)}$ <br />
 $W^{[2]} \in \mathcal{R}^{(4,3)}$ <br />
 $b^{[2]} \in \mathcal{R}^{(1,3)}$ <br />
-$z^{[2]} \in \mathcal{R}^{(1,3)}$ <br />
-$a^{[2]} \in \mathcal{R}^{(1,3)}$ <br />
 $W^{[3]} \in \mathcal{R}^{(3,2)}$ <br />
 $b^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
-$z^{[3]} \in \mathcal{R}^{(1,2)}$ <br />
-$y \in \mathcal{R}^{(1,2)}$ <br />
