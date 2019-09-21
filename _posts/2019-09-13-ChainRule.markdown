@@ -82,4 +82,4 @@ We need to update the matrices $W^{[1]}$, $W^{[2]}$, $W^{[3]}$ as well as the ve
 <center>$\frac{dE}{dW^{[1]}},\frac{dE}{dW^{[2]}},\frac{dE}{dW^{[3]}},\frac{dE}{db^{[1]}},\frac{dE}{db^{[2]}},\frac{dE}{db^{[3]}}$</center> <br />
 Now, I have re-written the neural network above explicitly showing the output of the layer ($z^{[k]}$) before the application of the activation function. <br />
 Let's start from $\frac{\partial E}{\partial W^{[3]}}$. The application of the chain rule allows to write the derivative as a multiplication of simpler derivatives as stated below:
-<center>\frac{\partial E}{\partial W^{[3]}}=\frac{\partial z^{[3]}}{\partial W^{[3]}}\frac{\partial y}{\partial z^{[3]}}\frac{\partial E}{\partial y}</center>
+<center>\frac{\partial E}{\partial W^{[3]}}=\frac{\partial z^{[3]}}{\partial W^{[3]}}\frac{\partial y}{\partial z^{[3]}}\frac{\partial E}{\partial y}</center><br />
