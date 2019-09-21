@@ -12,10 +12,9 @@ categories: artificial intelligence update machine learning
 
 Hello everyone! As I promised, I am publishing the first article about the chain rule for a fully connected neural network.
 
-First, I will explain the basics of the *feedforward* step for a fully connected neural network. I will derive the vector formulation *backpropagation* and provide some pseudocode of the latter (up until last week I was considering to publish the python implementation but for backprop but for the sake of generality I will try to keep the code as much language agnostic as I can).  <br />
+First, I will explain the basics of the *feedforward* step for a fully connected neural network, then I will derive the vector formulation *backpropagation* (up until last week I was considering to publish the python implementation but for backprop but for the sake of generality I will refrain from going into coding details).  <br />
 
 First of all, some math. In this blog I will use the denominator layout notation. It means that the vectors will be treated as **row vectors**. This affects what the equations look like and may cause some confusion at the beginning, but it won't be a big problem once the reader gets used to it.  <br />
-Also, for the sake of readability, I will introduce some signs indicating whether a certain element is a scalar, a vector or a matrix. <br />  
 
 ## 1. Notation
 All lower-case letters will indicate scalars/vectors whereas uppercase letters will indicate matrices.
@@ -25,7 +24,7 @@ Training a neural network consists of two steps: the forward step and the backpr
 First, let's take a look at the picture below.
 ![picture](/assets/pictures/nn.001.jpeg)
 
-The picture above shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with two units.
+The picture above shows a fully connected neural network with 2 hidden layers, an input layer with 8 units and an output layer with 2 units.
 For simplicity, we will assume that the activation functions of each layer are of sigmoid type, where sigmoid $\sigma$ is: <br />
 <center>$\begin{align*} \sigma=\frac{1}{1+e^{-x}} \end{align*}$ <br /></center>
 The forward step follows the following equations: <br />
@@ -81,7 +80,7 @@ The hardest of backpropagation is deriving with respect to the weights. It is im
 Given a product **aX** where **a** is a vector and **X** is a matrix, its derivatives are: <br />
 <center>$\frac{d}{da}(aX)=X^T$</center> <br />
 <center>$\frac{d}{dX}(aX)=a^T$</center> <br />
-Keep in mind that when the two rules above are applied to the chain rule in the neural network, $a^T$ has to be first term of the chain and $X$ has to be the last.
+Keep in mind that when the two rules above are applied to the chain rule in the neural network, $a^T$ has to be first term of the chain and $X^T$ has to be the last.
 
 ### 2.4 The backpropagation process
 
@@ -98,7 +97,7 @@ The other gradients follow the same rules. Also, since the gradients with respec
 
 You can easily see that the many of factors composing the gradients are shared. Let's start calculating the single terms.
 
-For the derivative of the error with respect to the example, you need to consider the single example error and differentiate wrt the example.
+For the derivative of the error with respect to the example, you need to consider the single example error and differentiate with respect to the example.
 
 <center>$\frac{\partial E}{\partial y}=-(g-y)$</center>
 
@@ -148,7 +147,9 @@ Therefore $\frac{\partial E}{\partial W^{[1]}}$ is a (8,4) matrix, which is exac
 
 Once you have calculated the previous gradients, the sum of all of them upon all the training examples will provide the accumulated gradient $\Delta W^{k}$. You can then use the $\Delta W^{k}$ to update weights and re-iterate through multiple epochs to train the network.
 
-<center>$W^{[1]}=W^{[1]}-\alpha \Delta W^{[1]}$<br /> $W^{[2]}=W^{[2]}-\alpha \Delta W^{[2]}$<br /> $W^{[3]}=W^{[3]}-\alpha \Delta W^{[3]}$<br /> </center>
+<center>$W^{[1]}=W^{[1]}-\alpha \Delta W^{[1]}$<br /> $W^{[2]}=W^{[2]}-\alpha \Delta W^{[2]}$<br /> $W^{[3]}=W^{[3]}-\alpha \Delta W^{[3]}$<br /> </center> <br />
+
+Where $alpha$ represents the chosen learning rate.
 
 ## Conclusion
 
