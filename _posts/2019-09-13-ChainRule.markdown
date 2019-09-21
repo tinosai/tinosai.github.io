@@ -81,3 +81,5 @@ Keep in mind that when the two rules above are applied to the chain rule in the 
 We need to update the matrices $W^{[1]}$, $W^{[2]}$, $W^{[3]}$ as well as the vectors $b^{[1]}$,$b^{[2]}$,$b^{[3]}$. The optimization is performed with gradient descent, therefore we need to find the following gradients: <br />
 <center>$\frac{dE}{dW^{[1]}},\frac{dE}{dW^{[2]}},\frac{dE}{dW^{[3]}},\frac{dE}{db^{[1]}},\frac{dE}{db^{[2]}},\frac{dE}{db^{[3]}}$</center> <br />
 Now, I have re-written the neural network above explicitly showing the output of the layer ($z^{[k]}$) before the application of the activation function. <br />
+Let's start from $\frac{\partial E}{\partial W^{[3]}}$. The application of the chain rule allows to write the derivative as a multiplication of simpler derivatives as stated below:
+<center>\frac{\partial E}{\partial W^{[3]}}=\frac{\partial z^{[3]}}{\partial W^{[3]}}\frac{\partial y}{\partial z^{[3]}}\frac{\partial E}{\partial y}</center>
