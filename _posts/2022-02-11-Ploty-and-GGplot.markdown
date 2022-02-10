@@ -2,8 +2,8 @@
 layout: post
 mathjax: true
 comments: true
-title:  "Chain Rule for Fully Connected Neural Networks"
-date:   2019-09-20 12:00:06 +0900
+title:  "Other stuff"
+date:   2022-02-11 12:00:06 +0900
 categories: artificial intelligence update machine learning
 ---
 {%- include mathjax.html -%}
