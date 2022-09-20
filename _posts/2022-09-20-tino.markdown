@@ -2,8 +2,8 @@
 layout: post
 mathjax: true
 comments: true
-title:  "Other stuff"
-date:   2022-02-11 12:00:06 +0900
+title:  "try2""
+date:   2022-09-19 12:00:06 +0900
 categories: artificial intelligence update machine learning
 ---
 {%- include mathjax.html -%}
