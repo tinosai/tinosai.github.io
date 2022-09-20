@@ -1,10 +1,15 @@
 ---
-title:  "New Blog Post"
-categories: [jekyll, rstats]
+title:  "Gaussian Processes"
+categories: [gaussian processes, stats]
 tags: [blogdown, knitr, servr, httpuv, websocket]
 output: 
     tufte::tufte_html : default
 ---
+Well, I have been away from the website for quite some time and I felt it was time to start writing again! A lot of things have changed since my first article. In particular, I have started studying again and I am currently enrolled in the M.Sc. in Machine Learning and Data Science at Imperial College London.
+
+In the past year I have been exposed to a multitude of statistical concepts like never before. However, I feel that only by explaining these in my own words I can truly acquire
+confidence. This is the first of a series of articles concerning Gaussian Processes. I hope you will enjoy!
+
 Well, I think I would like to try and write equations here:
 \begin{equation}
 \int_a^b p(x) \textrm{d}x
@@ -19,7 +24,10 @@ The R package [**blogdown**](https://github.com/rstudio/blogdown) was designed m
 
 As a result, all you need to do is write your blog posts (R Markdown documents). You do not need to explicitly re-build the website or call **knitr** commands. Whenever you save a blog post in your text editor, the web page will be updated on the fly. This is particularly handy in the [RStudio IDE](https://www.rstudio.com), because after you run `blogdown::serve_site()` in the console, you can start writing or editing your R Markdown posts, and the HTML output, displayed in the RStudio viewer pane, will be in sync with your source post in the source panel (see the screenshot below). Hello
 
-[![Jekyll with servr and knitr](//i.imgur.com/gKVGhiP.png)](//i.imgur.com/gKVGhiP.png)
+
+{% marginfigure 'mf-id-whatever' 'http://i.imgur.com/gKVGhiP.png' 'F.J. Cole, “The History of Albrecht Dürer’s Rhinoceros in Zoological Literature,” *Science, Medicine, and History: Essays on the Evolution of Scientific Thought and Medical Practice* (London, 1953), ed. E. Ashworth Underwood, 337-356. From page 71 of Edward Tufte’s *Visual Explanations*.' %}.
+
+
 
 ## Prerequisites
 
