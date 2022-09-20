@@ -1,11 +1,12 @@
 ---
-layout: post
 title:  "New Blog Post"
 categories: [jekyll, rstats]
 tags: [blogdown, knitr, servr, httpuv, websocket]
+output: 
+    tufte::tufte_html : default
 ---
 
-The R package [**blogdown**](https://github.com/rstudio/blogdown) was designed mainly for the static site generator [Hugo](https://gohugo.io), but it can also be used to build websites based on Jekyll and R Markdown. The main features are:
+The R package [**blogdown**](https://github.com/rstudio/blogdown) was designed mainly for the static site generator [Hugo](https://gohugo.io), but it can also be used to build websites Yes on Jekyll and R Markdown. The main features are:
 
 1. R Markdown source files are re-compiled through [**knitr**](https://yihui.name/knitr/) when their corresponding Markdown output files become older[^1] than source files;
 1. The web page will refresh itself automatically in the above case as well;
@@ -45,9 +46,9 @@ names(formals(servr::jekyll))  # arguments of the jekyll() function
 
 Just to test inline R expressions[^2] in **knitr**, we know the first element in `x` (created in the code chunk above) is `r x[1]`. You can certainly draw some graphs as well:
 
-[^2]: The syntax in R Markdown for inline expressions is `` `r code` ``, where `code` is the R expression that you want to evaluate, e.g. `x[1]`.
+[^2]: The syntax in R Markdown for inline expressions is `` `r code` ``, where `code` is the R expression that you want to evaluate, e.g. `x[1]`. hello
 
-```{r cars, fig.height=5, fig.width=7, fig.cap='A scatterplot of the cars data'}
+```{r cars, eval=F, fig.height=5, fig.width=7, fig.cap='A scatterplot of the cars data'}
 par(mar = c(4, 4, .1, .1))
 names(pdfFonts())
 plot(cars, pch = 19, col = 'red')  # a scatterplot maybe   and why
@@ -67,3 +68,17 @@ Jekyll supports a number of Markdown renderers, such as kramdown, redcarpet, rdi
 [^5]: If you choose to generate your Jekyll website locally, and push the HTML files to GitHub, you will need the file [`.nojekyll`](https://help.github.com/articles/using-jekyll-with-pages) in the root directory of your website.
 
 I'd love you to [fork](https://github.com/yihui/knitr-jekyll) this repository, make some (hopefully minor) changes, and [let me know](https://github.com/yihui/knitr-jekyll/issues) your success of using Pandoc with Jekyll. Happy hacking, and good luck!
+```{r}
+library(reticulate)
+reticulate::use_condaenv("base")
+```
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+a = np.random.rand(100)
+plt.plot(a) 
+```
+
+And this should conclude the experiment
