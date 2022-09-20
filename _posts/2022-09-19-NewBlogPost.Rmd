@@ -5,6 +5,10 @@ tags: [blogdown, knitr, servr, httpuv, websocket]
 output: 
     tufte::tufte_html : default
 ---
+Well, I think I would like to try and write equations here:
+\begin{equation}
+\int_a^b p(x) \textrm{d}x
+\end{equation}
 
 The R package [**blogdown**](https://github.com/rstudio/blogdown) was designed mainly for the static site generator [Hugo](https://gohugo.io), but it can also be used to build websites Yes on Jekyll and R Markdown. The main features are:
 
