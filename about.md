@@ -1,18 +1,30 @@
 ---
 layout: page
 title: About
-permalink: /about/
 ---
 
-Hi! I am an Aerodynamic Engineer at Honda R&D Co. Ltd. Japan.
+<p class="message">
+  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
+</p>
 
-I obtained a B.Sc. in Aerospace Engineering from the Polytechnic University of Milan (Italy) in 2013 and a M.Sc. in Aeronautics and Astronautics from the University of Tokyo (Japan) in 2015, with a thesis concerning the optimization of reusable launch vehicles. I am currently pursuing a M.Sc. in Machine Learning and Data Science at Imperial College London.
+In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
 
-On my free time, I enjoy reading and working on personal projects, mostly involving statistics.
+There are currently two themes built on Poole:
 
-I believe in constant self-improvement and I am determined to read and learn as much as I can (time allowing).
+* [Hyde](http://hyde.getpoole.com)
+* [Lanyon](http://lanyon.getpoole.com)
 
-七転び八起き (**not literally**: when life knocks you down, stand back up!)
+Learn more and contribute on [GitHub](https://github.com/poole).
 
-LinkedIn Profile:
-[LinkedIn](https://www.linkedin.com/in/fortunato-nucera-5b35ba111/)
+## Setup
+
+Some fun facts about the setup of this project include:
+
+* Built for [Jekyll](http://jekyllrb.com)
+* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
+* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
+* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
+
+Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
+
+Thanks for reading!
