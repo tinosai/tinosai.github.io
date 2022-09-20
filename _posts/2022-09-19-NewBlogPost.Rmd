@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "New Blog Post"
-categories: [stats, machine learning, gaussian processes]
 tags: [blogdown, knitr, servr, httpuv, websocket]
 ---
 
