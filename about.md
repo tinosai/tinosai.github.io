@@ -12,5 +12,7 @@ On my free time, I enjoy reading and working on personal projects, mostly involv
 
 I believe in constant self-improvement and I am determined to read and learn as much as I can (time allowing).
 
+七転び八起き (**not literally**: when life knocks you down, stand back up!)
+
 LinkedIn Profile:
 [LinkedIn](https://www.linkedin.com/in/fortunato-nucera-5b35ba111/)
