@@ -5,6 +5,10 @@ tags: [blogdown, knitr, servr, httpuv, websocket]
 output: 
     tufte::tufte_html : default
 ---
+
+```{r, echo=F}
+knitr::opts_chunk$set(fig.width=6, fig.height=4) 
+```
 Well, I have been away from the website for quite some time and I felt it was time to start writing again! A lot of things have changed since my first article. In particular, I have started studying again and I am currently enrolled in the M.Sc. in Machine Learning and Data Science at Imperial College London.
 
 In the past year I have been exposed to a multitude of statistical concepts like never before. However, I feel that only by explaining these in my own words I can truly acquire
@@ -88,9 +92,20 @@ reticulate::use_condaenv("base")
 ```{python}
 import numpy as np
 import matplotlib.pyplot as plt
+```
+```{python, echo=F}
+plt.rcParams["figure.facecolor"] = (255/255,255/255,249/255)
+plt.rcParams["font.family"] = "EB Garamond"
+plt.rcParams["font.size"] = 18
+```
 
+```{python, }
 a = np.random.rand(100)
 plt.plot(a) 
+plt.xlabel("I dk. This might be my fav font")
+plt.ylabel("idk 2")
+plt.tight_layout()
+plt.show()
 ```
 
 And this should conclude the experiment
