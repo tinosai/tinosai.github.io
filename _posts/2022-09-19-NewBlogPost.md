@@ -20,7 +20,8 @@ As a result, all you need to do is write your blog posts (R Markdown documents).
 
 You must have installed the packages **blogdown** (>= 0.0.55).
 
-```{r eval=FALSE}
+
+```r
 devtools::install_github('rstudio/blogdown')
 ```
 
@@ -30,29 +31,90 @@ Of course, you have to install [Jekyll](http://jekyllrb.com) as well. For Window
 
 Now we write some R code chunks in this post. For example,
 
-```{r}
+
+```r
 options(digits = 3)
 cat("hello world!")
+```
+
+```
+## hello world!
+```
+
+```r
 set.seed(123)
 (x = rnorm(40) + 10)
+```
+
+```
+##  [1]  9.44  9.77 11.56 10.07 10.13 11.72 10.46  8.73  9.31  9.55 11.22 10.36
+## [13] 10.40 10.11  9.44 11.79 10.50  8.03 10.70  9.53  8.93  9.78  8.97  9.27
+## [25]  9.37  8.31 10.84 10.15  8.86 11.25 10.43  9.70 10.90 10.88 10.82 10.69
+## [37] 10.55  9.94  9.69  9.62
+```
+
+```r
 # generate a table
 knitr::kable(head(mtcars))
+```
+
+
+
+|                  |  mpg| cyl| disp|  hp| drat|   wt| qsec| vs| am| gear| carb|
+|:-----------------|----:|---:|----:|---:|----:|----:|----:|--:|--:|----:|----:|
+|Mazda RX4         | 21.0|   6|  160| 110| 3.90| 2.62| 16.5|  0|  1|    4|    4|
+|Mazda RX4 Wag     | 21.0|   6|  160| 110| 3.90| 2.88| 17.0|  0|  1|    4|    4|
+|Datsun 710        | 22.8|   4|  108|  93| 3.85| 2.32| 18.6|  1|  1|    4|    1|
+|Hornet 4 Drive    | 21.4|   6|  258| 110| 3.08| 3.21| 19.4|  1|  0|    3|    1|
+|Hornet Sportabout | 18.7|   8|  360| 175| 3.15| 3.44| 17.0|  0|  0|    3|    2|
+|Valiant           | 18.1|   6|  225| 105| 2.76| 3.46| 20.2|  1|  0|    3|    1|
+
+```r
 (function() {
   if (TRUE) 1 + 1  # a boring comment
 })()
+```
+
+```
+## [1] 2
+```
+
+```r
 names(formals(servr::jekyll))  # arguments of the jekyll() function
 ```
 
-Just to test inline R expressions[^2] in **knitr**, we know the first element in `x` (created in the code chunk above) is `r x[1]`. You can certainly draw some graphs as well:
+```
+## [1] "dir"     "input"   "output"  "script"  "serve"   "command" "..."
+```
+
+Just to test inline R expressions[^2] in **knitr**, we know the first element in `x` (created in the code chunk above) is 9.44. You can certainly draw some graphs as well:
 
 [^2]: The syntax in R Markdown for inline expressions is `` `r code` ``, where `code` is the R expression that you want to evaluate, e.g. `x[1]`.
 
-```{r cars, fig.height=5, fig.width=7, fig.cap='A scatterplot of the cars data'}
+
+```r
 par(mar = c(4, 4, .1, .1))
 names(pdfFonts())
-plot(cars, pch = 19, col = 'red')  # a scatterplot maybe   and why
+```
 
 ```
+##  [1] "serif"                "sans"                 "mono"                
+##  [4] "AvantGarde"           "Bookman"              "Courier"             
+##  [7] "Helvetica"            "Helvetica-Narrow"     "NewCenturySchoolbook"
+## [10] "Palatino"             "Times"                "URWGothic"           
+## [13] "URWBookman"           "NimbusMon"            "NimbusSan"           
+## [16] "URWHelvetica"         "NimbusSanCond"        "CenturySch"          
+## [19] "URWPalladio"          "NimbusRom"            "URWTimes"            
+## [22] "ArialMT"              "Japan1"               "Japan1HeiMin"        
+## [25] "Japan1GothicBBB"      "Japan1Ryumin"         "Korea1"              
+## [28] "Korea1deb"            "CNS1"                 "GB1"
+```
+
+```r
+plot(cars, pch = 19, col = 'red')  # a scatterplot maybe   and why
+```
+
+![A scatterplot of the cars data](/figure/./2022-09-19-NewBlogPost/cars-1.png)
 
 ## The build script
 
