@@ -13,7 +13,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(base.dir = "/Users/fortunatonucera/blog/tinosai.github.io/", base.url = "/")
-knitr::opts_chunk$set(fig.path = "images/2022-09-19/")
+knitr::opts_chunk$set(fig.path = "images/2022-09-23/")
 ```
 
 ## It's been a minute!
@@ -242,7 +242,7 @@ graph2.set_axis_labels(xlabel="$\\beta_1$",ylabel="$\\beta_2$")
 plt.show()
 ```
 If we visualize the two bivariate normal distributions for $\beta$ side by side, they look almost exactly the same.
-![side-by-side bivariate posterior for beta](../../images/compounded_pics.png "beta posterior")
+![side-by-side bivariate posterior for beta](../images/compounded_pics.png "beta posterior")
 
 ## Conclusion
 We showed how to code the quadratic approximation of the posterior distribution. In addition, we explained that this approximation may or may not be appropriate, depending on:
@@ -257,5 +257,5 @@ Although the approximation should be working well with arbitrary complex models,
 
 Thanks for reading to the very end.
 <p style="text-align:center;">
-<img src="../../images/raccs.png" width="400">
+<img src="../images/raccs.png" width="400">
 </p>
