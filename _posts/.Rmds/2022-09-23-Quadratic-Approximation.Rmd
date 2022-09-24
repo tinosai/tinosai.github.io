@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Quadratic Approximation
+title: Quadratic Approximation for Bayesian Inference
 output:
 #  md_document:
 #    variant: markdown_github
