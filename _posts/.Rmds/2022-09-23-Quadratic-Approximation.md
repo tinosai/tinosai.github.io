@@ -8,7 +8,7 @@ output:
 #  html_document:
 #    toc: true
 #    toc_depth: 2
-#    sansfont: Garamond
+#    css: style.css
 ---
 
 ## It’s been a minute!
@@ -224,7 +224,7 @@ graph1.set_axis_labels(xlabel="$\\beta_1$",ylabel="$\\beta_2$")
 ```
 
 The picture below shows 10000 samples from the exact posterior for *β*.
-<img src="/images/2022-09-23/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" />
+<img src="2022-09-23-Quadratic-Approximation_files/figure-markdown_github/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" />
 
 ### Approximate Posterior
 
@@ -299,10 +299,10 @@ graph2 = sns.jointplot( x = df_approx["beta_1"],
 graph2.set_axis_labels(xlabel="$\\beta_1$",ylabel="$\\beta_2$")
 ```
 
-<img src="/images/2022-09-23/unnamed-chunk-11-3.png" width="576" style="display: block; margin: auto;" />
+<img src="2022-09-23-Quadratic-Approximation_files/figure-markdown_github/unnamed-chunk-11-3.png" width="576" style="display: block; margin: auto;" />
 If we visualize the two bivariate normal distributions for *β* side by
 side, they look almost exactly the same. ![side-by-side bivariate
-posterior for beta](../images/compounded_pics.png "beta posterior")
+posterior for beta](../../images/compounded_pics.png "beta posterior")
 
 ## Conclusion
 
@@ -326,5 +326,5 @@ Chain Monte Carlo could be a more suitable option.
 
 Thanks for reading to the very end.
 <p style="text-align:center;">
-<img src="../images/raccs.png" width="400">
+<img src="../../images/raccs.png" width="400">
 </p>

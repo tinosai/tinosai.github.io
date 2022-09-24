@@ -48,7 +48,7 @@ The Bernstein-Von Mises Theorem states that, under some regularity conditions (w
 The Quadratic Approximation uses this asymptotic result to approximate the posterior with a normal distribution. How is the probability density function of this - possibly multivariate - normal distribution obtained?
 Well, we know that a normal is fully identified by two parameters:
 \begin{equation}
-X \sim \mathcal{N}(\theta,\Sigma_\theta)
+Z \sim \mathcal{N}(\theta,\Sigma_\theta)
 \end{equation}
 
 $\theta \in \mathbb{R}^n$ is the mean and $\Sigma_{\theta} \in \mathbb{R}^{n\times n}$ is the covariance matrix (which is positive semi-definite by definition). Approximating the posterior with a multivariate normal means calculating these two parameters $\mu$ and $\Sigma$.
@@ -201,7 +201,13 @@ There are two things to consider at this point:
 
 Consider that, if $\sigma^2$ needs to be strictly larger than zero, the parameter space $\sigma^2$ is defined on is not compact. This implies a violation of the Bernstein-Von Mises theorem. How gross this violation is depends on the use we make of the results. Also, remember that $\sigma^2$'s posterior does not follow a normal distribution but an inverse Gamma, although we knew very well in advance we would be dealing with an approximation.
 
-The objective function to minimize is included below.
+Before showing the objective function, recall that, for the log posterior:
+\begin{equation}
+\textrm{logp} \propto \log(\textrm{likelihood}) +  \log(\textrm{prior})
+\end{equation}
+
+The objective function to minimize is included below. Note how the unnormalized log-posterior is the sum of three terms:
+one for $\sigma^2$ (the prior on the variance parameter is an inverse-Gamma), one for $\beta$ (the prior on the coefficients of the covariates is a multivariate normal) and, finally, the log-likelihood of the model (which is again multivariate normal).
 
 ```{python}
 def objective(pars,a=1, b=1, lam = 0.01):
@@ -252,7 +258,7 @@ We showed how to code the quadratic approximation of the posterior distribution.
 
 This code can be easily improved on by adding a parser for the specific distributions, so that the model can be fed, for example, via an external plain text file.
 
-Although the approximation should be working well with arbitrary complex models, the normality of the posterior distribution is an asymptotic result, which means that it must hold true when the number of data points becomes arbitrarily large, but for small-data problems, Markov Chain Monte Carlo could be a more suitable option.
+Although the approximation should be working well with arbitrary complex models, the normality of the posterior distribution is an asymptotic result, which means that it must hold true when the number of data points becomes arbitrarily large. However, for small-data problems, Markov Chain Monte Carlo could be a more suitable option.
 
 
 Thanks for reading to the very end.
