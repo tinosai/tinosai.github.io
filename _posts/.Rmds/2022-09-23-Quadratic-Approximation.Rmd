@@ -95,7 +95,7 @@ And also, asymptotically, we have that the covariance matrix evaluated at the ma
 
 Recalling that in our assumption the posterior is normal leads to the following result:
 \begin{equation}
-\theta | X \sim \mathcal{N}(\mu, \Sigma_\mu)
+\theta | Z \sim \mathcal{N}(\mu, \Sigma_\mu)
 \end{equation}
 
 And this is mostly the end of the theoretical explanation. The following section will show how to code a quadratic approximation to draw samples from the posterior of a Bayesian linear regression model. We use such a simple model because the posterior is readily available and the comparison becomes easy.
