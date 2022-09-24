@@ -1,0 +1,121 @@
+---
+layout: post
+title: New Post
+output:
+#  md_document:
+#    variant: markdown_github
+#    preserve_yaml: true
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#knitr::opts_knit$set(base.dir = "/Users/fortunatonucera/blog/tinosai.github.io/", base.url = "/")
+#knitr::opts_chunk$set(fig.path = "images/2022-09-19/")
+```
+
+## Gaussian Processes - 1
+
+# Introduction
+
+Hi! It's been a long time since I last posted on this blog. There are multiple reasons for that:
+
+1. Work has become more demanding, which means I have less time to think and write.  
+1. I have started a M.Sc. program in Machine Learning and Data Science.
+
+Going back to school is allowing me to partially fill the abysmal void in statistics that many years of engineering have left behind. Even though this blog, in the past, was thought as a place to share ideas on Neural Networks, I am starting to find Statistics (with the capital "S") much more interesting and challenging. As a result, I will focus on a broader range of topics - which for the most part be statistics-related. 
+
+Although I have tried publishing on Medium in the past, I feel that the platform is not mature enough for anything related to math. The lack of MathJax support was a big dissuader in my case.
+
+Without further ado, let's begin!
+
+# Bayesian Linear Regression
+
+Gaussian Processes are a popular technique used to build arbitrarily complex models.
+Linear Regression can be seen as a special case of a Gaussian Process. As a result, I believe that a quick introduction to Linear Regression can provide some help in understanding how and why Gaussian Processes work.
+
+Given an output $y \in \mathbb{R}^n$, a design matrix $X \in \mathbb{R}^{d \times n}$, a vector of coefficients $\beta \in \mathbb{R}^d$, and some identically normally distributed noise $\epsilon \sim \mathcal{N}(0,\sigma_n^2)$, the linear model can be written in the following form:
+\begin{equation}
+y | X, \beta \sim \mathcal{N} (X^T \beta, \sigma_n^2 I)
+\end{equation}
+
+where $I \in \mathbb{R}^{n \times n}$ is the identity matrix of rank $n$, the number of observations.
+This relation above is, in fact, the likelihood of the linear model. The traditional OLS approach places an (improper) reference prior on $\beta$ and $\sigma_n$. The posterior for the regression coefficients $\beta$, in this case, is:
+\begin{equation}
+\beta^{OLS} | \sigma, X, y \sim \mathcal{N}\left((XX^T)^{-1}Xy, \sigma_n^2 (XX^T)^-1\right)
+\end{equation}
+
+The matrix $XX^T \in \mathbb{R}^{d \times d}$  has rank $\textrm{min}(n,d)$ where $d$ is the number of covariates in the design matrix $X$. When $n<d$, $XX^T$ is not full rank and therefore the matrix product is not invertible. In addition, even when not singular, $XX^T$ may feature a high condition number, which makes the matrix inversion extremely unstable.
+
+The bayesian framework does not, in general, like the elicitation of improper priors, and rather attempts to solve the same problem using proper priors. Let's forget about $\sigma_n$ for now.
+
+The bayesian framework uses, as fundamental and supreme rule, the bayes theorem:
+\begin{equation}
+\textrm{posterior} = \frac{\textrm{likelihood}\times \textrm{prior}}{\textrm{evidence}}
+\end{equation}
+
+This, in our case, can be written as:
+\begin{equation}
+p(\beta | X,y) = \frac{p(y|X,\beta)p(\beta)}{\int p(y|X,\beta)p(\beta) \textrm{d}\beta} =
+\frac{p(y|X,\beta)p(\beta)}{\int p(y,\beta | X) \textrm{d}\beta} = \frac{p(y|X,\beta)p(\beta)}{ p (y | X)} \propto  p(y|X,\beta)p(\beta)
+\end{equation}
+
+Now, since likelihood (normal) and prior (normal) are [conjugate](https://en.wikipedia.org/wiki/Conjugate_prior), then the posterior **must** be a normal distribution. This makes the calculations for the posterior distribution a lot easier.
+We recall that an n-variate normal distribution with mean $\mu \in \mathbb{R}^n$ and covariance matrix $\Sigma \in \mathbb{R}^{n \times n}$ has the following density:
+\begin{equation}
+Z \sim \mathcal{N}(\mu, \Sigma) \implies p(Z|\mu,\Sigma) = \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}} \textrm{exp}\left(-\frac{1}{2}(z-\mu)^T \Sigma^{-1}(x-\mu)\right)
+\end{equation}
+
+### Prior Elicitation
+We can use the density above to place a multivariate normal prior on the regression coefficients.
+\begin{equation}
+\beta \sim \mathcal{N}(\mathbf{0}, \Sigma_{\beta}) \implies p(\beta) = \frac{1}{(2\pi)^{d/2}|\Sigma_{\beta}|^{1/2}} \textrm{exp}\left(-\frac{1}{2}\beta^T {\Sigma_{\beta}}^{-1}\beta\right)
+\end{equation}
+where the matrix $\Sigma_{\beta} \in \mathbb{R}^{d\times d}$ is a covariance matrix (and therefore symmetric and positive semi-definite by definition).
+
+### Likelihood
+The likelihood is the direct result of the chosen linear model. As previously stated:
+
+\begin{equation}
+y | X, \beta \sim \mathcal{N} (X^T \beta, \sigma_n^2 I) = \frac{1}{(2\pi)^{n/2}\sigma_n} \textrm{exp}\left(-\frac{1}{2\sigma_n^2}(y-X^T\beta)^T(y-X^T\beta)\right)
+\end{equation}
+
+### Posterior
+The posterior can be calculated using the Bayes' theorem.
+
+\begin{align}
+p(\beta | X,y) \propto p(y|X,\beta)p(\beta) = \frac{1}{(2\pi)^{n/2}\sigma_n} \textrm{exp}\left(-\frac{1}{2\sigma_n^2}(y-X^T\beta)^T(y-X^T\beta)\right) \frac{1}{(2\pi)^{d/2}|\Sigma_{\beta}|^{1/2}} \textrm{exp}\left(-\frac{1}{2}\beta^T {\Sigma_{\beta}}^{-1}\beta\right)\label{eq1}\tag{1}
+\end{align}
+
+Now, from the previous expression, we can "discard" all the terms that do not contain $\beta$ (remember that we are sure that the posterior is normal, given the likelihood and prior conjugacy, therefore the functional shape for the posterior is known, even though the parameters are not).
+
+Equation (1) then becomes:
+
+\begin{align}
+p(\beta | X,y) \propto  \textrm{exp}\left(-\frac{1}{2\sigma_n^2}(-2y^TX^T\beta+\beta^TXX^T\beta)\right)  \textrm{exp}\left(-\frac{1}{2}\beta^T {\Sigma_{\beta}}^{-1}\beta\right) = \textrm{exp}\left(-\frac{1}{2}\beta^T (\sigma_n^{-2}XX^T+\Sigma_{\beta}^{-1}) \beta + \frac{1}{\sigma_n^2}\beta^TX y\right)\label{eq2}\tag{2}
+\end{align}
+
+Equation (2) must be the density of a multivariate normal distribution. As a result, we must complete the square. The final form of the distribution must be:
+\begin{align}
+\beta | X,y \sim \mathcal{N}\left(\hat{\beta}, \Sigma_{\hat{\beta}}\right) \implies p(\beta|X,y) = \frac{1}{(2\pi)^{d/2}|\Sigma_{\hat{\beta}}|}\textrm{exp}\left(-\frac{1}{2}(\beta-\hat{\beta})^T \Sigma_{\hat{\beta}}^{-1}(\beta-\hat{\beta}) \right)\label{eq3}\tag{3}
+\end{align}
+
+Inspecting Equation (3) and comparing it with Equation (2), one can notice that the quadratic term in $\beta$ must be the same. As a result:
+\begin{equation}
+\Sigma_{\hat{\beta}} = \left(\frac{1}{\sigma_n^2}XX^T + \Sigma_{\beta}^{-1}\right)^{-1}
+\end{equation}
+This posterior covariance matrix includes the prior covariance matrix and a term which depends only on the design matrix, and not on the output $y$.
+
+As for the mean of the distribution, looking at Equation (3) and comparing it again with Equation (2), it must be that:
+\begin{equation}
+\beta^T\Sigma_{\hat{\beta}}^{-1}\hat{\beta} = \beta^T X y \implies
+\Sigma_{\hat{\beta}}^{-1} \hat{\beta} = X y \implies
+\hat{\beta} = \Sigma_{\hat{\beta}} X y = \left(\frac{1}{\sigma_n^2}XX^T + \Sigma_{\beta}^{-1}\right)^{-1} X y
+\end{equation}
+
+```{r 2022_09_19_pic1, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
