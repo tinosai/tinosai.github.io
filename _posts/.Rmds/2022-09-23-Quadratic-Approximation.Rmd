@@ -265,3 +265,7 @@ Thanks for reading to the very end.
 <p style="text-align:center;">
 <img src="../../images/raccs.png" width="400">
 </p>
+---------------------------------------------------------------------------------------------------------------
+<p style="text-align:center;">
+[Home](https://tinosai.github.io/)
+</p>
