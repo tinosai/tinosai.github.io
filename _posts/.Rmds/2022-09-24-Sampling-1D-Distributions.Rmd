@@ -1,0 +1,32 @@
+---
+layout: post
+title: Sampling Univariate Distributions
+output:
+#  md_document:
+#    variant: markdown_github
+#    preserve_yaml: true
+  html_document:
+    toc: true
+    toc_depth: 2
+    css: style.css
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#knitr::opts_knit$set(base.dir = "/Users/fortunatonucera/blog/tinosai.github.io/", base.url = "/")
+#knitr::opts_chunk$set(fig.path = "images/2022-09-23/")
+```
+
+## Introduction
+In real world scenarios, we may need to sample from arbitrary univariate distributions. In this article, I will show how all you really need for that is really just a uniform random number generator.
+In particular, in this article, we will introduce two different sampling methods:
+\
+
+
+Thanks for reading to the very end.
+<p style="text-align:center;">
+<img src="../../images/raccs.png" width="400">
+</p>
+---------------------------------------------------------------------------------------------------------------
+<p style="text-align:center;">
+[Home](https://tinosai.github.io/)
+</p>

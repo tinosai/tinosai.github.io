@@ -1,0 +1,368 @@
+---
+layout: post
+title: Hamiltonian Monte Carlo
+output:
+#  md_document:
+#    variant: markdown_github
+#    preserve_yaml: true
+  html_document:
+    toc: true
+    toc_depth: 2
+    css: style.css
+---
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+#knitr::opts_knit$set(base.dir = "/Users/fortunatonucera/blog/tinosai.github.io/", base.url = "/")
+#knitr::opts_chunk$set(fig.path = "images/2022-09-23/")
+```
+
+## 1. Introduction
+In a [previous post](https://tinosai.github.io/2022/09/23/Quadratic-Approximation.html) on this blog, I explained how to use the quadratic approximation to sample from the approximate posterior distribution of a Bayesian Linear Model. The quadratic approximation is an excellent technique which is often overlooked. In some scenarios though, especially in the case of hierarchical models, the quadratic approximation may not work.
+
+Markov Chain Monte Carlo (MCMC) does not make any assumptions on the posterior distribution, which can then become as flexible as we need it to be. We pay a high price for that though: harder implementation and slower sampling. The "harder implementation" is - as always - relative to the observer: the world is full of smart people!
+The "slower sampling" is, instead, something to consider more carefully.
+
+MCMC is a family of techniques which comprises very different samplers. I wrote about how to sample using Metropolis-Hastings (MH) in [this post](https://medium.com/@tinonucera/bayesian-linear-regression-from-scratch-a-metropolis-hastings-implementation-63526857f191) on Medium. I hope I will have time to move the article to this blog, given how hard it is to type math there.
+
+But I digress. In this post, I would like to show how to build a Hamiltonian Monte Carlo (HMC) sampler with minimal math. In my opinion, HMC is a lot more intuitive than MH, and I argue that anybody with minimal knowledge of calculus could be successful in building a simple HMC sampler. In this post, I will **not** explain how to tune the step size $\epsilon$ and the number of steps $L$ used in the sampling routine. The tuning itself is another beast of its own, and the interested reader can refer to [this article](https://www.jmlr.org/papers/volume15/hoffman14a/hoffman14a.pdf) by Hoffman and Gelman to learn more about it.
+
+I have two main references for this post:
+
+1. [**The Handbook of Markov Chain Monte Carlo**, Chapter 5](https://www.mcmchandbook.net/HandbookChapter5.pdf)
+1. Statistical Rethinking, by Richard McElreath. You can take a look at [his github repo](https://github.com/rmcelreath/stat_rethinking_2022) for further information.
+
+## 2. Why HMC?
+One could use Metropolis or Gibbs sampling for a large amount of different problems in Bayesian Statistics, however Gibbs and Metropolis sampling tend to get stuck in small regions of the posterior distribution for a very long time, especially if the number of model parameters is large. In fact, with a higher number of parameters, there is a higher chance for some of them to be strongly correlated. This creates some deep "valleys" in the posterior distributions, which the Gibbs and Metropolis' samplers tend to get trapped into. HMC, thanks to a randomized initial moment, is able to get out of those valleys and to sample from some other regions of the posterior.
+
+## 3, Explanation
+If you have taken a course in Analytical Mechanics in college, you must have come across the Lagrange equation:
+\begin{equation}
+\frac{\textrm{d}}{\textrm{d}t}\left(\frac{\partial L }{\partial \dot{q}}\right) - \frac{\partial L }{\partial q}=0
+\end{equation}
+
+$q$ is names *generalized coordinate* and $\dot{q}$ is its first time derivative. $L$ is called "Lagrangian" and is a function of both the kinetic and the potential energy of the system. In reality, a system often features more than one generalized coordinate (there are as many as the degrees of freedom of the system, $d_f$). This gives rise to a (possibly non linear) system of differential equations.
+\begin{equation}
+\frac{\textrm{d}}{\textrm{d}t}\left(\frac{\partial L }{\partial \dot{q}_i}\right) - \frac{\partial L }{\partial q_i}=0 \textrm{, with } i=1,\dots,d_f
+\end{equation}
+
+It turns out that there is another way to describe the dynamics of a system through the use of Hamilton's equations. Instead of employing $\dot{q}$, the time derivative of the generalized coordinate, the Hamiltonian formulation uses $p$, the *generalized momenta* associated with the generalized coordinates. One can define a quantity $H$, called Hamiltonian, which is again a function of both kinetic and potential energy. With this definition, the system dynamics follows Hamilton's equations:
+\begin{align}
+& \dot{p} = -\frac{\partial H}{\partial q} \\
+& \dot{q} = \frac{\partial H}{\partial p}
+\end{align}
+For HMC, we use Hamiltonians  in the form:
+\begin{equation}
+H(q,p) = U(q) + K(p)
+\end{equation}
+
+Please note that $U$ represents the potential energy (a function of $q$, a sort of generalized position), whereas $K$ represents the kinetic energy (a function of $p$, which is a momentum, a sort of generalized velocity). I keep writing "sort of" because this definition is neither proper nor completely correct, but at least it provides an idea of *why* this method works.
+
+Integrating the system of Hamilton's equation is no big deal. A simple forward Euler could do that. However, forward Euler would be very sensitive to the choice of step size for the integration. A more suitable option is the *leapfrog method*.
+
+\begin{align}
+& p_i(t+\epsilon/2) = p_i(t) - \frac{\epsilon}{2} \frac{\partial U}{\partial q_i} \Big|_{q(t)} \\
+& q_i(t+\epsilon/2) = q_i(t) + \epsilon \frac{p_i(t+\epsilon/2)}{m_i} \\
+& p_i(t+\epsilon) = p_i(t+\epsilon/2) - \frac{\epsilon}{2} \frac{\partial U}{\partial q_i} \Big|_{q(t)+\epsilon}
+\end{align}
+
+In other words, the leapfrog method alternatively solves both the coordinates and the momenta's equations simultaneously, moving *half-steps*. Here, $\epsilon$ is the step size and $L$ is the number of leapfrog steps performed before stopping.
+But how does one calculate $U$? The answer is easier than you think, and an analogy with physics will shed some light on it.
+
+Imagine you have a friction-less bowl and a chickpea. You throw the chickpea in the bowl and flick it. The chickpea rises to the wall of the bowl, before falling back towards the bottom: why? *Gravity*. Flicking the chickpeas gives it some kinetic energy. Since the system is friction-less, when the chickpea climbs up the wall and slows down, this entire kinetic energy is converted into potential energy, until a location of zero kinetic energy and maximum potential energy is reached. This potential energy is then converted back into kinetic energy once the chickpea rolls back down.
+
+**What is this *statistical* kinetic energy? The unnormalized log-posterior!**
+
+In particular, the unnormalized log-posterior ($U$) and its derivative $\left(\frac{\partial U}{\partial q_i}\right)$ are all we need for the sampling step!
+The most original feature of HMC is that the momentum $p$ is not calculated, but sampled. It this sampled momentum $p$ that starts the physics simulation which then culminates in the proposal of a new set of parameters. Cool, right?
+
+## 4. Derivation
+We will use again a linear model. I am not particularly fond of Bayesian Linear Regression, but the prior distributions and the likelihood are interesting and make for a nice exercise. I talked about the linear model in a previous article, but I will include the model definition here for ease of access.
+
+<hr style="height:5px;border-width:0;color:gray;background-color:gray">
+A linear model can be defined through the following conditional probability statement.
+\begin{equation}
+y | X, \beta, \sigma \sim \mathcal{N}(X\beta, \sigma^2 I)
+\end{equation}
+where:
+
+- $y \in \mathbb{R}^{n}$ is the response vector
+- $X \in \mathbb{R}^{n \times d}$ is the design matrix
+- $\beta \in \mathbb{R}^{d}$ is the parameter vector
+- $\sigma^2$ is a variance parameter (which sets the noise level)
+
+In order to obtain an "easy" posterior, we use the conjugate prior on $\beta$ and $\sigma$ (normal-inverse-gamma):
+\begin{align}
+& \beta | \sigma \sim \mathcal{N}(0, \sigma^2 V) \\
+& \sigma^2 \sim \textrm{invGamma}(a,b) \\
+\end{align}
+where $V = \lambda^{-1} I$
+The choice of $\lambda$ is, again, arbitrary.
+<hr style="height:5px;border-width:0;color:gray;background-color:gray">
+
+The unnormalized posterior for the linear model ($\textrm{logp}$) can be written as:
+\begin{align}
+\textrm{logp} =  & \log \left(\frac{1}{(2\pi)^{n/2}(\sigma^2)^{n/2}} \exp\left\{-\frac{1}{2\sigma^2}(y-X\beta)^T(y-X\beta)\right\}\right) + \\
+& \log \left(\frac{1}{(2\pi)^{d/2}(\sigma^2)^{d/2}|V|^{1/2}} \exp \left\{-\frac{1}{2\sigma^2}\beta^T V^{-1}\beta \right\}  \right) +\\ \label{eq::eq1}\tag{1}
+&\log \left(\frac{b^a}{\Gamma(a)} \sigma^{-2 (a-1)} \exp\left\{-b\sigma^{-2}\right\}\right)
+\end{align}
+
+Equation (1) is the sum of three terms. The first from the top is model log-likelihood (multivariate normal), the one in the middle is the log-prior on the $\beta$ coefficients (multivariate normal) and the one at the bottom is the log-prior on the parameter $\sigma$ (inverse gamma). The distributions included in `Scipy` feature a method called `logpdf` which allow us to access the log-probability distribution function without having to code it manually. This is a relief! 
+On the other hand, the derivatives are not available. Automatic differentiation and back-propagation help a lot in that sense, as one could easily back-propagate through the defined parameters and obtain the gradients needed for the leapfrog integration. In this case, however, we will implement the gradients from scratch.
+Before doing so, let's simplify the log-posterior a bit:
+
+\begin{align}
+\textrm{logp} = & -\frac{n}{2}\log(2\pi) -\frac{n}{2}\log(\sigma^2) -\frac{1}{2\sigma^2}(y-X\beta)^T(y-X\beta) 
+- \frac{d}{2}\log(2\pi)-\frac{d}{2}\log(\sigma^2) -\frac{1}{2\sigma^2}\beta^T V^{-1}\beta
++ \\
+& a\log(b) - \log(\Gamma(a)) - (a-1)\log(\sigma^2)-\frac{b}{\sigma^2}
+\end{align}
+
+Well, there are a lot of terms there for sure! Now, we need calculate the gradient of $\textrm{logp}$ with respect to $\beta$ and $\sigma^2$. 
+Remember: the gradient should have one component for each of the parameters. Here $\beta$ is a d-dimensional vector and $\sigma^2$ is a scalar. As a result, the gradient should have size $d+1$. 
+
+First, let's calculate the gradient with respect to $\beta$:
+\begin{align}
+\frac{\partial \textrm{logp}}{\partial \beta} = \frac{1}{\sigma^2} (y-X\beta)^T X - \frac{1}{\sigma^2} \beta^T V^{-1}
+\end{align}
+this shows that $\frac{\partial \textrm{logp}}{\partial \beta} \in \mathbb{R}^d$
+The last component of the gradient, the one with respect to $\sigma^2$, follows below:
+\begin{equation}
+\frac{\partial \textrm{logp}}{\partial \sigma^2} = 
+-\frac{n}{2\sigma^2}
++\frac{1}{2\sigma^4}(y-X\beta)^T(y-X\beta)
+-\frac{d}{2\sigma^2} 
++\frac{1}{2\sigma^4} \beta^T V^{-1} \beta 
++ \frac{(1-a)\sigma^2+b}{\sigma^4} 
+\end{equation}
+
+And this concludes the annoying part. Now, off to coding.
+
+## 5. The Code
+
+```{r, echo=F}
+library(reticulate)
+reticulate::use_condaenv("fast_numpy_env")
+```
+First of all, we import all the relevant libraries as usual. Here, we set the 
+`seed` to 42 for no special reason other than it being a common practice.
+
+```{python}
+# import numpy as set the random seed
+import numpy as np
+np.random.seed(42)
+# for dummy data set generation
+from sklearn.datasets import make_regression 
+import scipy.stats as scio
+import matplotlib.pyplot as plt
+plt.rcParams["figure.dpi"] = 150
+import seaborn as sns
+```
+We now generate a dummy data set. This data set will include two covariates and a noise parameter with standard deviation of 20 (variance of 400).
+```{python}
+X, y = make_regression(n_samples=100,n_features=2, bias=0.0, noise=20)
+```
+Next, we define the unnormalized negative log-posterior ($\mathbf{U}$) as in Eq. (1). Please note that we use the `logpdf` functions included in `Scipy` to avoid a lengthier implementation.
+The parameters `pars` that are passed to the function are the $\beta$s of the model withe trailing parameter being  $\sigma^2$ 
+```{python}
+def U(pars,a=1, b=1, lam = 0.01):
+    """
+    Calculates the unnormalized negative log-posterior:
+    Inputs:
+        pars  : the parameters 
+                pars = [beta_1, beta_2, ..., beta_d, sigma^2] [d+1]
+        a,b   : the two parameters for the prior on the parameter sigma^2
+        lam   : the parameter for the prior on beta
+    Output:
+        a scalar indicating the value of the unnormalized negative log-posterior at that point
+    """
+    # this function evaluates the log-posterior in a linear regression model.
+    # the source is: https://tinosai.github.io/2022/09/23/Quadratic-Approximation.html
+    # pars = [beta_1, beta_2, ..., beta_d, sigma^2]
+    beta = np.array(pars[:-1])
+    sigma2 = pars[-1]
+    if pars[2] <=0:
+        # returns infinite negative logp when sigma^2 <= 0
+        return np.inf
+    V = 1/lam * np.eye(X.shape[1])
+    # logpdf of sigma
+    logp  = scio.invgamma( a = a, scale = b).logpdf(sigma2)
+    # logpdf of beta
+    logp += scio.multivariate_normal(mean = np.zeros(beta.shape), cov = sigma2*V).logpdf(beta)
+    # log likelihood
+    logp += scio.multivariate_normal(mean = np.squeeze(X@beta.reshape(-1,1)), 
+                                     cov=sigma2*np.eye(X.shape[0])).logpdf(y)
+    return -logp
+```
+
+Finally, we create a function to calculate the gradient of the unnormalized negative log-posterior. Note how we change the sign at the `return` value in order to account for the fact that we are dealing with the unnormalized *negative* log-posterior. 
+
+```{python}
+def dU(pars,a=1,b=1,lam=0.01):
+    """
+    Calculates the gradients of the unnormalized negative log-posterior for a conjugate linear model
+    Inputs:
+        pars  : the parameters [d+1]
+                pars = [beta_1, beta_2, ..., beta_d, sigma^2]
+        a,b   : the two parameters for the prior on the parameter sigma^2
+        lam   : the parameter for the prior on beta
+    Output:
+        a vector indicating the gradient of negative log-posterior U with respect to the model parameters
+    """
+    sigma2 = pars[-1]
+    beta = np.array(pars[:-1]).reshape(-1,1)
+    p = beta.shape[0]
+    n = X.shape[0]
+    V_inv = lam * np.eye(beta.shape[0])
+    
+    # derivative with respect to beta
+    dudbeta = 1/sigma2 * X.T@(y.reshape(-1,1)-X@beta) -1/sigma2*V_inv@beta
+    
+    # derivative with respect to the noise
+    duds2  = - p/(2*sigma2) + 1/(2*sigma2**2.0)*beta.T@V_inv@beta + ((1.0-a)*sigma2+b)/(sigma2**2.0)
+    duds2 +=  -n/(2*sigma2) + 1/(2*sigma2**2.0)*(y.reshape(-1,1)-X@beta).T@(y.reshape(-1,1)-X@beta)
+    
+    # concatenate the gradients from beta and sigma^2
+    output = np.concatenate([dudbeta,duds2])
+    
+    return -np.squeeze(output)
+```
+
+The final ingredient for the Hamiltonian recipe is the leapfrog integration step:
+
+```{python}
+def leapFrog(q,epsilon=0.00001, L=10):
+    """
+    Performs the leapFrog integration step.
+    Inputs:
+        q       : a vector of parameters [d+1]
+        epsilon : the integration step size 
+        L       : the number of leapFrog integration steps
+    Output:
+        the accepted value for the parameters after the Metropolis proposal
+    """
+    
+    # 0. copy global variables in local scope
+    localQ = np.copy(q)
+    
+    # 1. Sample the momentum p from a standard normal distribution
+    localP = np.random.normal(size=len(q)) 
+    p = np.copy(localP)
+    
+    # 2. In accordance to the leapfrog integration, make a half step at the beginning
+    localP -= epsilon/2*dU(localQ)
+    
+    # 3. Perform L integration steps
+    for i in range(1,L+1):
+        localQ += epsilon*localP
+        # if we are not at the last step, perform full-step integration of the momentum
+        if i != L:
+            localP -= epsilon*dU(localQ)
+    # 4. at the last step, we perform half-step integration of the momentum instead
+    localP -= epsilon/2*dU(localQ)
+    
+    # 5. check the Hamiltonian at the start and at the end
+    initial_U = U(q)
+    initial_K = np.sum(p**2.0) / 2.0
+    final_U = U(localQ)
+    final_K = np.sum(localP**2.0) / 2.0
+    
+    # 6. perform the Metropolis acceptance 
+    if np.random.uniform() < np.exp((initial_U-final_U+initial_K-final_K)):
+        
+        return localQ
+    else:
+        return q
+```
+
+## 6. Calculating the posterior
+
+We will now calculate the posterior for the parameters. First, we define a starting point and then repeatedly call the leapfrog integration step with a given step size $\epsilon$ and  number of steps $L$. I have carried out some simulations beforehand and $\epsilon=2.1$ and $L=20$  seem to be working well in this case. However, more complex and optimized samplers (like Stan, for example) are able to run multiple warm-up simulations to decide these two parameters automatically. Tuning them manually is usually quite time-consuming.
+```{python, }
+# set the initial value for the parameters
+q0 = np.array([10.0,10.0,100.0])
+q = np.copy(q0)
+# instantiate a list for the samples from HMC
+samples = []
+# set the number of total iterations 
+N = 50000
+# perform HMC sampling
+for i in range(N):
+    # copy previous value of the sampled parameters
+    q0 = np.copy(q)
+    # integrate through leapfrog
+    q = leapFrog(q, epsilon=2.1 ,L=20)
+    # only save samples if we moved in the log-posterior.
+    # if not, skip and sample again.
+    if ~np.all(q == q0):
+        samples.append(q)
+        
+# stack all samples
+samples = np.vstack(samples)
+```
+
+For comparison, we could also sample from the exact posterior, which is known, as I have explained [in this post](https://tinosai.github.io/2022/09/23/Quadratic-Approximation.html). I won't go into the details here.
+```{python}
+# sample from the exact posterior
+a, b = 1.0,1.0
+lam = 0.01
+V = 1/lam * np.eye(X.shape[1])
+n = X.shape[0]
+Vn = np.linalg.pinv(np.linalg.pinv(V)+X.T@X)
+mn = Vn@X.T@y
+an = a+n/2
+bn = b+0.5*(np.dot(y,y)-np.dot(y,X@mn))
+
+# sample from the exact posterior
+sigma2_post = 1/scio.gamma(a=an, scale=1/bn).rvs(N)
+beta_post = np.zeros((2,sigma2_post.shape[0]))
+for i, sigma2_eval in enumerate(sigma2_post):
+    beta_post[:,i] = scio.multivariate_normal(mean=mn, cov=sigma2_eval*Vn).rvs()
+
+# output the exact posterior
+exact_posterior = np.vstack((beta_post, sigma2_post)).T
+```
+
+And, finally, we plot the exact and the sampled posterior against one another:
+```{python}
+# create the axes
+fig, ax = plt.subplots(nrows=3)
+# plot the distribution of beta_1
+sns.kdeplot(exact_posterior[-int(N/2):,0],fill=True, ax=ax[0], label="Exact Posterior")
+sns.kdeplot(samples[-int(N/2):,0],fill=True, ax=ax[0], label="Sampled Posterior")
+ax[0].set_title("$\\beta_{1}$")
+ax[0].legend()
+
+# plot the distribution of beta_2
+sns.kdeplot(exact_posterior[-int(N/2):,1],fill=True, ax=ax[1], label="Exact Posterior")
+sns.kdeplot(samples[-int(N/2):,1],fill=True, ax=ax[1], label="Sampled Posterior")
+ax[1].set_title("$\\beta_2$")
+ax[1].legend()
+
+# plot the distribution of sigma^2
+sns.kdeplot(sigma2_post[-int(N/2):],fill=True, ax=ax[2], label="Exact Posterior")
+sns.kdeplot(samples[-int(N/2):,2],fill=True, ax=ax[2], label="Sampled Posterior")
+ax[2].set_title("$\sigma^2$")
+ax[2].legend()
+plt.tight_layout()
+```
+```{python, echo=F, fig.align="center"}
+plt.show()
+```
+
+## 7. Results and Conclusion
+
+The sampled posterior well resembles the exact one. Better results could be obtained with a finer tuning of $\epsilon$ and $L$ but, as I stated at the very beginning, I wanted to focus more on the implementation and less on the tuning. It would be interesting to study the convergence to the exact posterior distribution based on these two sampler's parameters. However, don't forget that out-of-the-box solutions do exist, and in most cases they are highly optimized.
+PyTorch, Stan and other libraries implementing automatic or symbolic differentiation will always have an edge on simple codes (whose pedagogical value is undebated). Imagine having larger and more complex models: the manual calculation of the gradient would take quite some time and defining a different function (either for the likelihood or for the prior) would force us to replace the explicit expression for the gradient. Rather annoying isn't it?
+
+Finally, the use of **NUTS** (no u-turn sampler) is strongly recommended over vanilla HMC. Before Hoffman and Gelman published their paper in 2014, HMC did not find vast adoption because of the complexity in the correct setting of $\epsilon$ and $L$. Check [Stan](https://mc-stan.org/) for further details.
+
+I hope you enjoyed the article.
+
+Thanks for reading.
+<p style="text-align:center;">
+<img src="../../images/raccs.png" width="400">
+</p>
+<p style="text-align:center;">
+[Home](https://tinosai.github.io/)
+</p>
