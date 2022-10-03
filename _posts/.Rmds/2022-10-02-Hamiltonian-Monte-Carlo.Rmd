@@ -118,8 +118,8 @@ Before doing so, let's simplify the log-posterior a bit:
 & a\log(b) - \log(\Gamma(a)) - (a-1)\log(\sigma^2)-\frac{b}{\sigma^2}
 \end{align}
 
-Well, there are a lot of terms there for sure! Now, we need calculate the gradient of $\textrm{logp}$ with respect to $\beta$ and $\sigma^2$. 
-Remember: the gradient should have one component for each of the parameters. Here $\beta$ is a d-dimensional vector and $\sigma^2$ is a scalar. As a result, the gradient should have size $d+1$. 
+Well, there are a lot of terms there for sure! Now, we need to calculate the gradient of $\textrm{logp}$ with respect to $\beta$ and $\sigma^2$. 
+Remember: the gradient should have one component for each of the parameters. Here $\beta$ is a $d$-dimensional vector and $\sigma^2$ is a scalar. As a result, the gradient should have size $d+1$. 
 
 First, let's calculate the gradient with respect to $\beta$:
 \begin{align}
@@ -322,9 +322,12 @@ for i, sigma2_eval in enumerate(sigma2_post):
 # output the exact posterior
 exact_posterior = np.vstack((beta_post, sigma2_post)).T
 ```
-
+```{python, echo=F}
+import warnings
+warnings.filterwarnings("ignore")
+```
 And, finally, we plot the exact and the sampled posterior against one another:
-```{python}
+```{python, message=F, warning=FALSE}
 # create the axes
 fig, ax = plt.subplots(nrows=3)
 # plot the distribution of beta_1

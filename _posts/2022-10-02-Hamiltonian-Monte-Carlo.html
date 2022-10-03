@@ -573,10 +573,9 @@ let’s simplify the log-posterior a bit:</p>
 &amp; a\log(b) - \log(\Gamma(a)) -
 (a-1)\log(\sigma^2)-\frac{b}{\sigma^2}
 \end{align}\]</span></p>
-<p>Well, there are a lot of terms there for sure! Now, we need calculate
-the gradient of <span class="math inline">\(\textrm{logp}\)</span> with
-respect to <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span>. Remember: the gradient should
-have one component for each of the parameters. Here <span class="math inline">\(\beta\)</span> is a d-dimensional vector and <span class="math inline">\(\sigma^2\)</span> is a scalar. As a result, the
+<p>Well, there are a lot of terms there for sure! Now, we need to
+calculate the gradient of <span class="math inline">\(\textrm{logp}\)</span> with respect to <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^2\)</span>. Remember: the gradient should
+have one component for each of the parameters. Here <span class="math inline">\(\beta\)</span> is a <span class="math inline">\(d\)</span>-dimensional vector and <span class="math inline">\(\sigma^2\)</span> is a scalar. As a result, the
 gradient should have size <span class="math inline">\(d+1\)</span>.</p>
 <p>First, let’s calculate the gradient with respect to <span class="math inline">\(\beta\)</span>: <span class="math display">\[\begin{align}
 \frac{\partial \textrm{logp}}{\partial \beta} = \frac{1}{\sigma^2}
@@ -778,9 +777,8 @@ exact_posterior = np.vstack((beta_post, sigma2_post)).T</code></pre>
 another:</p>
 <pre class="python"><code># create the axes
 fig, ax = plt.subplots(nrows=3)
-# plot the distribution of beta_1</code></pre>
-<pre><code>## &lt;string&gt;:1: MatplotlibDeprecationWarning: The resize_event function was deprecated in Matplotlib 3.6 and will be removed two minor releases later. Use callbacks.process(&#39;resize_event&#39;, ResizeEvent(...)) instead.</code></pre>
-<pre class="python"><code>sns.kdeplot(exact_posterior[-int(N/2):,0],fill=True, ax=ax[0], label=&quot;Exact Posterior&quot;)
+# plot the distribution of beta_1
+sns.kdeplot(exact_posterior[-int(N/2):,0],fill=True, ax=ax[0], label=&quot;Exact Posterior&quot;)
 sns.kdeplot(samples[-int(N/2):,0],fill=True, ax=ax[0], label=&quot;Sampled Posterior&quot;)
 ax[0].set_title(&quot;$\\beta_{1}$&quot;)
 ax[0].legend()
