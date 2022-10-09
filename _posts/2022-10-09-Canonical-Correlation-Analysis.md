@@ -1,23 +1,10 @@
----
-layout: post
-title: Canonical Correlation Analysis new
-output:
-  md_document:
-    variant: markdown_github
-    preserve_yaml: true
-#  html_document:
-#    toc: true
-#    toc_depth: 2
-#    css: style.css
----
-
 {%- include mathjax.html -%}
 
 ``` r
 rm(list=ls())
 ```
 
-## Canonical Correlation Analysis
+Trying this \## Canonical Correlation Analysis
 
 This notebook shows a possible implementation of CCA on the `mfeat-fac`
 and `mfeat-fou` set. The files are available
@@ -56,7 +43,7 @@ view1_scaled = scale(view1)
 view2_scaled = scale(view2)
 ```
 
-## 3. Calculate the Covariance Matrices *Σ*<sub>*X**X*</sub> , *Σ*<sub>*X**Z*</sub>, *Σ*<sub>*Z**Z*</sub>
+## 3. Calculate the Covariance Matrices *Σ*<sub>*X**X*</sub> , *Σ*<sub>*X**Z*</sub>, *Σ*<sub>\*Z\*\*Z\*</sub>
 
 ``` python
 # number of examples for each matrix 
@@ -99,9 +86,9 @@ plt.colorbar(fraction=0.02, pad=0.02)
 ## 4. Calculate the inverse-square-root covariance matrices
 
 Recall that, if *Σ*<sub>*X**X*</sub> = *P**D**P*<sup>−1</sup> then
-*Σ*<sub>*X**X*</sub><sup>−1/2</sup> = *P**D*<sup>−1/2</sup>*P*<sup>−1</sup>
+*Σ*<sub>*X**X*</sub><sup>−1/2</sup> = \*P\*\*D*<sup>−1/2</sup>*P*<sup>−1</sup>
 (diagonalization). <br> Also, the exponentiation of the diagonal matrix
-of the eigenvalues *D* is done *elementwise, and only applied to the
+of the eigenvalues *D\* is done *elementwise, and only applied to the
 diagonal.* All the other elements are 0. <br>
 
 Note that the eigenvectors in the eigenvector matrix returned by
@@ -110,7 +97,7 @@ is orthogonal, therefore the transpose of the matrix is equal to its
 inverse, and we can write:
 *Σ*<sub>*X**X*</sub><sup>−1/2</sup> = *P**D*<sup>−1/2</sup>*P*<sup>*T*</sup>
 
-### 4.1 Calculate *Σ*<sub>*X**X*</sub><sup>−1/2</sup>
+### 4.1 Calculate *Σ*<sub>\*X\*\*X\*</sub><sup>−1/2</sup>
 
 ``` python
 # np.linalg.eig returns, as first element, the vector of eigenvalues. As second element, the matrix of eigenvectors
@@ -126,7 +113,7 @@ sigma_xx_eigval , sigma_xx_eigvect = sigma_xx_eigval[order], sigma_xx_eigvect[:,
 sigma_xx_12 = sigma_xx_eigvect @ np.diag(sigma_xx_eigval**(-0.5)) @ sigma_xx_eigvect.T
 ```
 
-### 4.2 Calculate *Σ*<sub>*Z**Z*</sub><sup>−1/2</sup>
+### 4.2 Calculate *Σ*<sub>\*Z\*\*Z\*</sub><sup>−1/2</sup>
 
 ``` python
 # np.linalg.eig returns, as first element, the vector of eigenvalues. As second element, the matrix of eigenvectors
