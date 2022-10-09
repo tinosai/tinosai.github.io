@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Canonical Correlation Analysis
+title: Canonical Correlation Analysis new
 output:
   md_document:
     variant: markdown_github
@@ -10,6 +10,10 @@ output:
 #    toc_depth: 2
 #    css: style.css
 ---
+
+``` r
+rm(list=ls())
+```
 
 ## Canonical Correlation Analysis
 
@@ -78,7 +82,7 @@ ax[1].set_title("$\\Sigma_{ZZ}$")
 ax[1].axis("off");
 ```
 
-<img src="/images/2022-10-09/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
+<img src="/images/2022-10-10/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
 
 ``` python
 # Now we plot the inter-set covariance matrix
@@ -88,7 +92,7 @@ plt.title("$\\Sigma_{XZ}$")
 plt.colorbar(fraction=0.02, pad=0.02)
 ```
 
-<img src="/images/2022-10-09/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" />
+<img src="/images/2022-10-10/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" />
 
 ## 4. Calculate the inverse-square-root covariance matrices
 
@@ -183,7 +187,7 @@ plt.ylabel("correlation")
 plt.title("Correlation graph between $Xu_m$ and $Zv_m$")
 ```
 
-<img src="/images/2022-10-09/unnamed-chunk-14-5.png" width="672" style="display: block; margin: auto;" />
+<img src="/images/2022-10-10/unnamed-chunk-15-5.png" width="672" style="display: block; margin: auto;" />
 
 ``` python
 corrGraph[0]
@@ -205,7 +209,7 @@ plt.ylabel("Second View, first component")
 plt.title("Canonical Variates")
 ```
 
-<img src="/images/2022-10-09/unnamed-chunk-16-7.png" width="672" style="display: block; margin: auto;" />
+<img src="/images/2022-10-10/unnamed-chunk-17-7.png" width="672" style="display: block; margin: auto;" />
 
 ### Notes:
 

@@ -10,11 +10,14 @@ output:
 #    toc_depth: 2
 #    css: style.css
 ---
-```{r setup, include=FALSE}
+```{r}
 rm(list=ls())
+```
+
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(base.dir = "/Users/fortunatonucera/blog/tinosai.github.io/", base.url = "/")
-knitr::opts_chunk$set(fig.path = "images/2022-10-09/")
+knitr::opts_knit$set(base.dir = "/Users/fortunatonucera/blog/tinosai.github.io", base.url = "/")
+knitr::opts_chunk$set(fig.path = "/Users/fortunatonucera/blog/tinosai.github.io/images/2022-10-10/")
 ```
 
 ```{r, echo=F, messages=F, results="hide", warning=FALSE}
