@@ -11,6 +11,8 @@ output:
 #    css: style.css
 ---
 
+{%- include mathjax.html -%}
+
 ``` r
 rm(list=ls())
 ```
