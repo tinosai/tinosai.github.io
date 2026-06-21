@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tino&#x27;s AI</title>
+    <link>https://tinosai.github.io</link>
+    <atom:link href="https://tinosai.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Machine Learning, Artificial Intelligence, Code and Algorithms</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 21 Jun 2026 14:16:14 +0000</lastBuildDate>
+    <item>
+      <title>Canonical Correlation Analysis</title>
+      <link>https://tinosai.github.io/posts/canonical-correlation-analysis.html</link>
+      <guid>https://tinosai.github.io/posts/canonical-correlation-analysis.html</guid>
+      <pubDate>Fri, 07 Oct 2022 12:00:00 +0000</pubDate>
+      <description>Canonical Correlation Analysis — statistics, linear-algebra</description>
+    </item>
+    <item>
+      <title>Hamiltonian Monte Carlo</title>
+      <link>https://tinosai.github.io/posts/hamiltonian-monte-carlo.html</link>
+      <guid>https://tinosai.github.io/posts/hamiltonian-monte-carlo.html</guid>
+      <pubDate>Sun, 02 Oct 2022 12:00:00 +0000</pubDate>
+      <description>Hamiltonian Monte Carlo — bayesian, sampling, mcmc</description>
+    </item>
+    <item>
+      <title>Quadratic Approximation for Bayesian Inference</title>
+      <link>https://tinosai.github.io/posts/quadratic-approximation.html</link>
+      <guid>https://tinosai.github.io/posts/quadratic-approximation.html</guid>
+      <pubDate>Fri, 23 Sep 2022 12:00:00 +0000</pubDate>
+      <description>Quadratic Approximation for Bayesian Inference — bayesian, inference</description>
+    </item>
+    <item>
+      <title>Chain Rule for Fully Connected Neural Networks</title>
+      <link>https://tinosai.github.io/posts/chain-rule-fcn.html</link>
+      <guid>https://tinosai.github.io/posts/chain-rule-fcn.html</guid>
+      <pubDate>Fri, 20 Sep 2019 12:00:00 +0000</pubDate>
+      <description>Chain Rule for Fully Connected Neural Networks — neural-networks, calculus, backprop</description>
+    </item>
+  </channel>
+</rss>
