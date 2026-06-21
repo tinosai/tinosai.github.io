@@ -1,0 +1,61 @@
+---
+layout: default
+---
+
+<section class="hero">
+  <div class="wrap">
+    <img class="hero-avatar" src="{{ site.avatar }}" alt="Fortunato Nucera" loading="eager">
+    <div class="hero-body">
+      <span class="hero-eyebrow">{{ site.description | strip_newlines }}</span>
+      <h1>Hi, I'm Fortunato Nucera.</h1>
+      <p class="lead">
+        <strong>Aerodynamics Engineer</strong> at Honda R&amp;D (Japan) and an
+        MSc candidate in Machine Learning &amp; Data Science at Imperial College
+        London. I write about the mathematics behind machine learning,
+        statistics, and the algorithms I find worth understanding deeply.
+      </p>
+      <div class="social-row">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/fortunato-nucera-5b35ba111/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45C23.2 24 24 23.22 24 22.27V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+          GitHub
+        </a>
+        <a class="btn" href="{{ '/about/' | relative_url }}">About me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="site-main">
+  <div class="wrap wrap-wide">
+    <div class="section-head">
+      <h2>Writing</h2>
+      <a class="rss-link" href="{{ '/feed.xml' | relative_url }}">Subscribe via RSS →</a>
+    </div>
+
+    {%- if site.posts.size > 0 -%}
+    <ul class="post-list">
+      {%- for post in site.posts -%}
+      {%- assign title = post.title -%}
+      {%- if title == "Cca" -%}{%- assign title = "CCA" -%}{%- endif -%}
+      <li>
+        <a class="post-card" href="{{ post.url | relative_url }}">
+          <span class="post-date">{{ post.date | date: "%B %-d, %Y" }}</span>
+          <h3 class="post-title">{{ title | escape }}</h3>
+          {%- if post.categories.size > 0 -%}
+          <div class="tag-row">
+            {%- for cat in post.categories -%}
+            <span class="tag">{{ cat }}</span>
+            {%- endfor -%}
+          </div>
+          {%- endif -%}
+        </a>
+      </li>
+      {%- endfor -%}
+    </ul>
+    {%- endif -%}
+  </div>
+</main>

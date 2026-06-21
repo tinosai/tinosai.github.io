@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<main class="site-main">
+  <div class="wrap">
+    <a class="back-link" href="{{ '/' | relative_url }}">← All posts</a>
+    <article>
+      <header class="post-header">
+        {%- assign title = page.title -%}
+        {%- if title == "Cca" -%}{%- assign title = "CCA" -%}{%- endif -%}
+        <h1 class="post-title">{{ title | escape }}</h1>
+        <div class="post-meta">
+          <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+          {%- if page.categories.size > 0 %} · {{ page.categories | join: ", " }}{%- endif -%}
+        </div>
+      </header>
+      <div class="article-body">
+        {{ content }}
+      </div>
+    </article>
+  </div>
+</main>

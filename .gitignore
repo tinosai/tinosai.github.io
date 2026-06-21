@@ -1,14 +1,11 @@
-<<<<<<< HEAD
+# Jekyll build output & caches
 _site
+_gh_pages
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
-vendor
-=======
-# Ignore docs files
-_gh_pages
-_site
 .ruby-version
+vendor
 
 # Numerous always-ignore extensions
 *.diff
@@ -46,4 +43,3 @@ validation-report.json
 
 # Folders to ignore
 node_modules
->>>>>>> cd79d2f583d1182c290e5c0742f45f46281ef4c4
